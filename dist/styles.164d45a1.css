@@ -42,4 +42,29 @@ main {
   grid-area: 7/1/9/8;
 }
 
+#ordercontainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 7px;
+  grid-row-gap: 7px;
+  width: 100%;
+  height: 100%;
+}
+
+.order {
+  background-color: white;
+}
+.order h2 {
+  padding: 1px;
+}
+.order p {
+  font-size: 1.5 rem;
+  text-align: right;
+  margin: 5px;
+  position: relative;
+  top: 70px;
+  color: red;
+}
+
 /*# sourceMappingURL=/styles.164d45a1.css.map */
