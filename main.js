@@ -6,6 +6,7 @@ const HTML = {};
 
 function start() {
   console.log("START");
+  HTML.queue = document.querySelector("#queue");
   HTML.tap0 = document.querySelector("#tapcontainer article:nth-child(1)");
   HTML.tap1 = document.querySelector("#tapcontainer article:nth-child(2)");
   HTML.tap2 = document.querySelector("#tapcontainer article:nth-child(3)");
@@ -30,6 +31,9 @@ function fetchData() {
 
 function showData(data) {
   console.log(data);
+
+  //QUEUE
+  HTML.queue.querySelector("h1").textContent = data.queue.length;
 
   //TAP 1
   HTML.tap0.querySelector("h3").textContent = data.taps[0].beer;

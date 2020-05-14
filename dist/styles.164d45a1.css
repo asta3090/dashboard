@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -10,7 +11,6 @@ body {
 
 html {
   font-size: 62.5%;
-  font-family: "Roboto", sans-serif;
 }
 
 main {
@@ -29,7 +29,6 @@ main {
 }
 
 #queue {
-  background-color: blueviolet;
   grid-area: 1/6/4/8;
 }
 
@@ -136,6 +135,23 @@ main {
 
 [data-beertype=Steampunk] .overlay {
   background-color: #d6a309;
+}
+
+#queue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+}
+#queue h1 {
+  font-size: 18rem;
+  margin: 0;
+}
+#queue p {
+  margin: 0;
+  font-size: 1.8rem;
 }
 
 /*# sourceMappingURL=/styles.164d45a1.css.map */

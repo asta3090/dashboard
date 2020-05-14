@@ -126,6 +126,7 @@ var HTML = {};
 
 function start() {
   console.log("START");
+  HTML.queue = document.querySelector("#queue");
   HTML.tap0 = document.querySelector("#tapcontainer article:nth-child(1)");
   HTML.tap1 = document.querySelector("#tapcontainer article:nth-child(2)");
   HTML.tap2 = document.querySelector("#tapcontainer article:nth-child(3)");
@@ -148,7 +149,9 @@ function fetchData() {
 }
 
 function showData(data) {
-  console.log(data); //TAP 1
+  console.log(data); //QUEUE
+
+  HTML.queue.querySelector("h1").textContent = data.queue.length; //TAP 1
 
   HTML.tap0.querySelector("h3").textContent = data.taps[0].beer;
   HTML.tap0.setAttribute("data-beertype", data.taps[0].beer);
@@ -248,7 +251,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64599" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65330" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
