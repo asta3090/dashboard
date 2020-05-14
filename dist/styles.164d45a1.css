@@ -20,6 +20,7 @@ main {
   grid-gap: 7px;
   width: 100vw;
   height: 100vh;
+  padding: 7px;
 }
 
 #ordercontainer {
@@ -38,8 +39,67 @@ main {
 }
 
 #tapcontainer {
-  background-color: orange;
   grid-area: 7/1/9/8;
+}
+
+#tapcontainer {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 7px;
+}
+#tapcontainer .tap {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  display: grid;
+  background-color: white;
+}
+#tapcontainer .tap .overlay {
+  width: 100%;
+  height: 80%;
+  align-self: end;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+[data-beertype=ElHefe] .overlay {
+  background-color: #f5ca06;
+}
+
+[data-beertype=FairyTaleAle] .overlay {
+  background-color: #eb8d02;
+}
+
+[data-beertype=GitHop] .overlay {
+  background-color: #eb8d02;
+}
+
+[data-beertype=HollabackLager] .overlay {
+  background-color: #cc5408;
+}
+
+[data-beertype=HoppilyEverAfter] .overlay {
+  background-color: #eb8d02;
+}
+
+[data-beertype=Mowintime] .overlay {
+  background-color: #cc5408;
+}
+
+[data-beertype=Row26] .overlay {
+  background-color: #3d1102;
+}
+
+[data-beertype=RuinedChildhood] .overlay {
+  background-color: #bf7d02;
+}
+
+[data-beertype=Sleighride] .overlay {
+  background-color: #bf7d02;
+}
+
+[data-beertype=Steampunk] .overlay {
+  background-color: #d6a309;
 }
 
 /*# sourceMappingURL=/styles.164d45a1.css.map */
