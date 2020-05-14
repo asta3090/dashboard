@@ -11,7 +11,7 @@ main {
 }
 
 #ordercontainer {
-  background-color: pink;
+  background-color: $background-color;
   grid-area: 1/1/7/6;
 }
 #queue {
