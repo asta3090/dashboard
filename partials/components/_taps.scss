@@ -10,7 +10,6 @@
 
     h3 {
       text-align: center;
-      font-size: 1.8rem;
       margin: 0;
       margin-bottom: 15px;
     }
@@ -39,6 +38,11 @@
       left: 50%;
       top: 10px;
       transform: translate(-50%, 0);
+
+      .beerflow {
+        height: 0;
+        transition: 2s all;
+      }
     }
 
     .tap-bottom {
@@ -66,11 +70,19 @@
   .overlay {
     background-color: #f5ca06;
   }
+
+  .beerflow {
+    fill: darken($color: #f5ca06, $amount: 8);
+  }
 }
 
 [data-beertype="Fairy Tale Ale"] {
   .overlay {
     background-color: #eb8d02;
+  }
+
+  .beerflow {
+    fill: darken($color: #eb8d02, $amount: 8);
   }
 }
 
@@ -78,11 +90,17 @@
   .overlay {
     background-color: #eb8d02;
   }
+  .beerflow {
+    fill: darken($color: #eb8d02, $amount: 8);
+  }
 }
 
 [data-beertype="Hollaback Lager"] {
   .overlay {
     background-color: #cc5408;
+  }
+  .beerflow {
+    fill: darken($color: #cc5408, $amount: 8);
   }
 }
 
@@ -90,11 +108,17 @@
   .overlay {
     background-color: #eb8d02;
   }
+  .beerflow {
+    fill: darken($color: #eb8d02, $amount: 8);
+  }
 }
 
 [data-beertype="Mowintime"] {
   .overlay {
     background-color: #cc5408;
+  }
+  .beerflow {
+    fill: darken($color: #cc5408, $amount: 8);
   }
 }
 
@@ -102,11 +126,17 @@
   .overlay {
     background-color: #3d1102;
   }
+  .beerflow {
+    fill: darken($color: #3d1102, $amount: 8);
+  }
 }
 
 [data-beertype="Ruined Childhood"] {
   .overlay {
     background-color: #bf7d02;
+  }
+  .beerflow {
+    fill: darken($color: #bf7d02, $amount: 8);
   }
 }
 
@@ -114,10 +144,16 @@
   .overlay {
     background-color: #bf7d02;
   }
+  .beerflow {
+    fill: darken($color: #bf7d02, $amount: 8);
+  }
 }
 
 [data-beertype="Steampunk"] {
   .overlay {
     background-color: #d6a309;
+  }
+  .beerflow {
+    fill: darken($color: #d6a309, $amount: 8);
   }
 }
