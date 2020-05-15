@@ -6,6 +6,8 @@ const HTML = {};
 
 function start() {
   console.log("START");
+  HTML.template = document.querySelector("template");
+  HTML.dest = document.querySelector("#ordercontainer");
   HTML.queue = document.querySelector("#queue");
   HTML.tap0 = document.querySelector("#tapcontainer article:nth-child(1)");
   HTML.tap1 = document.querySelector("#tapcontainer article:nth-child(2)");
@@ -31,6 +33,7 @@ function fetchData() {
 
 function showData(data) {
   console.log(data);
+  showOrders(data.queue);
 
   //QUEUE
   HTML.queue.querySelector("h1").textContent = data.queue.length;
@@ -118,4 +121,23 @@ function showData(data) {
       HTML.tap6.querySelector(".storage").textContent = beer.amount + " x";
     }
   });
+}
+
+function showOrders(data) {
+  console.log(data);
+  HTML.dest.innerHTML = "";
+  data.forEach((person) => showOrder(person));
+}
+
+function showOrder(person) {
+  console.log(person);
+  let klon = HTML.template.cloneNode(true).content;
+
+  klon.querySelector("h2").textContent = "ORDER #" + person.id;
+  person.order.forEach((orderItem) => {
+    const li = document.createElement("li");
+    li.textContent = orderItem;
+    klon.querySelector("ul").appendChild(li);
+  });
+  HTML.dest.appendChild(klon);
 }
