@@ -1,7 +1,7 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", start);
 
-const endPoint = "https://examfoobar.herokuapp.com/";
+const endPoint = "https://foobarexam.herokuapp.com/";
 const HTML = {};
 
 function start() {
@@ -25,7 +25,7 @@ function fetchData() {
     .then((data) => data.json())
     .then((data) => {
       showData(data);
-      setTimeout(fetchData, 500);
+      setTimeout(fetchData, 5000);
     });
 }
 
