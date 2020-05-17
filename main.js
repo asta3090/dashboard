@@ -9,22 +9,6 @@ function start() {
   HTML.template = document.querySelector("template");
   HTML.dest = document.querySelector("#ordercontainer");
   HTML.queue = document.querySelector("#queue");
-  HTML.worker0 = document.querySelector(
-    "#workerscontainer article:nth-child(1)"
-  );
-  HTML.worker1 = document.querySelector(
-    "#workerscontainer article:nth-child(2)"
-  );
-  HTML.worker2 = document.querySelector(
-    "#workerscontainer article:nth-child(3)"
-  );
-  HTML.tap0 = document.querySelector("#tapcontainer article:nth-child(1)");
-  HTML.tap1 = document.querySelector("#tapcontainer article:nth-child(2)");
-  HTML.tap2 = document.querySelector("#tapcontainer article:nth-child(3)");
-  HTML.tap3 = document.querySelector("#tapcontainer article:nth-child(4)");
-  HTML.tap4 = document.querySelector("#tapcontainer article:nth-child(5)");
-  HTML.tap5 = document.querySelector("#tapcontainer article:nth-child(6)");
-  HTML.tap6 = document.querySelector("#tapcontainer article:nth-child(7)");
 
   fetchSVGS();
   fetchData();
