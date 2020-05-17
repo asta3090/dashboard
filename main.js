@@ -28,6 +28,7 @@ function start() {
 
   fetchSVGS();
   fetchData();
+  postData();
 }
 
 function fetchSVGS() {
@@ -36,7 +37,6 @@ function fetchSVGS() {
   })
     .then((svg) => svg.text())
     .then((svg) => {
-      console.log(svg);
       document
         .querySelectorAll(".tap-icon")
         .forEach((tapIcon) => (tapIcon.innerHTML = svg));
@@ -55,7 +55,7 @@ function fetchData() {
 }
 
 function showData(data) {
-  console.log(data);
+  // console.log(data);
   showOrders(data.queue);
 
   //QUEUE
@@ -124,6 +124,12 @@ function showData(data) {
     HTML.worker2.querySelector("circle").style.fill = "red";
   }
 
+  data.taps.forEach((tap) => {
+    if (tap.level < 500) {
+      console.log(tap);
+    }
+  });
+
   //TAP 1
   HTML.tap0.querySelector("h3").textContent = data.taps[0].beer;
   HTML.tap0.setAttribute("data-beertype", data.taps[0].beer);
@@ -139,9 +145,11 @@ function showData(data) {
   });
 
   if (data.taps[0].inUse) {
-    HTML.tap0.querySelector(".beerflow").style.height = "100%";
+    HTML.tap0.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap0.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap0.querySelector(".beerflow").style.height = "0px";
+    HTML.tap0.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap0.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 2
@@ -159,9 +167,11 @@ function showData(data) {
   });
 
   if (data.taps[1].inUse) {
-    HTML.tap1.querySelector(".beerflow").style.height = "100%";
+    HTML.tap1.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap1.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap1.querySelector(".beerflow").style.height = "0px";
+    HTML.tap1.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap1.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 3
@@ -179,9 +189,11 @@ function showData(data) {
   });
 
   if (data.taps[2].inUse) {
-    HTML.tap2.querySelector(".beerflow").style.height = "100%";
+    HTML.tap2.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap2.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap2.querySelector(".beerflow").style.height = "0px";
+    HTML.tap2.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap2.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 4
@@ -199,9 +211,11 @@ function showData(data) {
   });
 
   if (data.taps[3].inUse) {
-    HTML.tap3.querySelector(".beerflow").style.height = "100%";
+    HTML.tap3.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap3.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap3.querySelector(".beerflow").style.height = "0px";
+    HTML.tap3.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap3.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 5
@@ -219,9 +233,11 @@ function showData(data) {
   });
 
   if (data.taps[4].inUse) {
-    HTML.tap4.querySelector(".beerflow").style.height = "100%";
+    HTML.tap4.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap4.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap4.querySelector(".beerflow").style.height = "0px";
+    HTML.tap4.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap4.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 6
@@ -239,9 +255,11 @@ function showData(data) {
   });
 
   if (data.taps[5].inUse) {
-    HTML.tap5.querySelector(".beerflow").style.height = "100%";
+    HTML.tap5.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap5.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap5.querySelector(".beerflow").style.height = "0px";
+    HTML.tap5.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap5.querySelector(".tap_svg").classList.add("inactive");
   }
 
   //TAP 7
@@ -259,20 +277,22 @@ function showData(data) {
   });
 
   if (data.taps[6].inUse) {
-    HTML.tap6.querySelector(".beerflow").style.height = "100%";
+    HTML.tap6.querySelector(".tap_svg").classList.remove("inactive");
+    HTML.tap6.querySelector(".tap_svg").classList.add("active");
   } else {
-    HTML.tap6.querySelector(".beerflow").style.height = "0px";
+    HTML.tap6.querySelector(".tap_svg").classList.remove("active");
+    HTML.tap6.querySelector(".tap_svg").classList.add("inactive");
   }
 }
 
 function showOrders(data) {
-  console.log(data);
+  // console.log(data);
   HTML.dest.innerHTML = "";
   data.forEach((person) => showOrder(person));
 }
 
 function showOrder(person) {
-  console.log(person);
+  // console.log(person);
   let klon = HTML.template.cloneNode(true).content;
 
   klon.querySelector("h2").textContent = "ORDER #" + person.id;
