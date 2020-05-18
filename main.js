@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", start);
 
 const endPoint = "https://foobarexam.herokuapp.com/";
 const HTML = {};
+let currentTaps = [];
 
 function start() {
   console.log("START");
