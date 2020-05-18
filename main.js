@@ -21,7 +21,9 @@ function fetchSVGS() {
   })
     .then((svg) => svg.text())
     .then((svg) => {
-      document.querySelectorAll(".tap-icon").forEach((tapIcon) => (tapIcon.innerHTML = svg));
+      document
+        .querySelectorAll(".tap-icon")
+        .forEach((tapIcon) => (tapIcon.innerHTML = svg));
     });
 }
 
@@ -38,7 +40,7 @@ function fetchData() {
 
 function showData(data) {
   // console.log(data);
-  showOrders(data.queue);
+  showOrders(data);
 
   //QUEUE
   const queueLength = data.queue.length;
@@ -52,16 +54,21 @@ function showData(data) {
   //BARTENDERS
   data.bartenders.forEach((bartender) => {
     const bartenderNumber = data.bartenders.indexOf(bartender);
-    const DOMDest = document.querySelector(`#workerscontainer article:nth-child(${bartenderNumber + 1})`);
+    const DOMDest = document.querySelector(
+      `#workerscontainer article:nth-child(${bartenderNumber + 1})`
+    );
 
-    DOMDest.querySelector("h3").textContent = data.bartenders[bartenderNumber].name.toUpperCase();
+    DOMDest.querySelector("h3").textContent = data.bartenders[
+      bartenderNumber
+    ].name.toUpperCase();
 
     if (data.bartenders[bartenderNumber].status === "WORKING") {
       if (data.bartenders[bartenderNumber].statusDetail === "replaceKeg") {
         DOMDest.querySelector("p").textContent = "REPLACING KEG";
         DOMDest.querySelector("circle").style.fill = "red";
       } else {
-        DOMDest.querySelector("p").textContent = "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
+        DOMDest.querySelector("p").textContent =
+          "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
         DOMDest.querySelector("circle").style.fill = "red";
       }
     } else if (data.bartenders[bartenderNumber].status === "READY") {
@@ -76,12 +83,16 @@ function showData(data) {
   //TAPS
   data.taps.forEach((tap) => {
     const tapNumber = data.taps.indexOf(tap);
-    const DOMDest = document.querySelector(`#tapcontainer article:nth-child(${tapNumber + 1})`);
+    const DOMDest = document.querySelector(
+      `#tapcontainer article:nth-child(${tapNumber + 1})`
+    );
 
     DOMDest.querySelector("h3").textContent = data.taps[tapNumber].beer;
     DOMDest.setAttribute("data-beertype", data.taps[tapNumber].beer);
-    DOMDest.querySelector(".overlay").style.height = (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
-    DOMDest.querySelector(".level").textContent = data.taps[tapNumber].level / 100 + "L";
+    DOMDest.querySelector(".overlay").style.height =
+      (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
+    DOMDest.querySelector(".level").textContent =
+      data.taps[tapNumber].level / 100 + "L";
 
     data.storage.forEach((beer) => {
       if (beer.name === data.taps[tapNumber].beer) {
@@ -102,18 +113,31 @@ function showData(data) {
 function showOrders(data) {
   // console.log(data);
   HTML.dest.innerHTML = "";
-  data.forEach((person) => showOrder(person));
+  data.queue.forEach((person) => {
+    showOrder(person, data.timestamp);
+  });
 }
 
-function showOrder(person) {
-  // console.log(person);
+function showOrder(person, timestamp) {
   let klon = HTML.template.cloneNode(true).content;
 
   klon.querySelector("h3").textContent = "ORDER #" + person.id;
+  const timeMilli = timestamp - person.startTime;
+  klon.querySelector(".time").textContent = millisToMinutesAndSeconds(
+    timeMilli
+  );
+
   person.order.forEach((orderItem) => {
     const li = document.createElement("li");
     li.textContent = orderItem;
     klon.querySelector("ul").appendChild(li);
   });
   HTML.dest.appendChild(klon);
+}
+
+//Hugget fra https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
