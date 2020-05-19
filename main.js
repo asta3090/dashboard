@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", start);
 const endPoint = "https://foobarexam.herokuapp.com/";
 const HTML = {};
 let currentTaps = [];
+let waitingTimes = [0, 0];
 
 function start() {
   console.log("START");
@@ -39,7 +40,7 @@ function fetchData() {
 }
 
 function showData(data) {
-  // console.log(data);
+  console.log(data);
   showOrders(data);
 
   //QUEUE
@@ -50,6 +51,9 @@ function showData(data) {
   } else {
     HTML.queue.querySelector("p").textContent = "People in line";
   }
+
+  HTML.queue.querySelector("p+p").textContent =
+    "Average queue time: " + calcAverage();
 
   //BARTENDERS
   data.bartenders.forEach((bartender) => {
@@ -114,11 +118,12 @@ function showOrders(data) {
   // console.log(data);
   HTML.dest.innerHTML = "";
   data.queue.forEach((person) => {
-    showOrder(person, data.timestamp);
+    showOrder(person, data);
   });
 }
 
-function showOrder(person, timestamp) {
+function showOrder(person, data) {
+  let timestamp = data.timestamp;
   let klon = HTML.template.cloneNode(true).content;
 
   klon.querySelector("h3").textContent = "ORDER #" + person.id;
@@ -133,6 +138,15 @@ function showOrder(person, timestamp) {
     klon.querySelector("ul").appendChild(li);
   });
   HTML.dest.appendChild(klon);
+
+  waitingTimes.push(timestamp - person.startTime);
+}
+
+function calcAverage() {
+  const sum = waitingTimes.reduce((a, b) => a + b);
+  const avg = sum / waitingTimes.length;
+
+  return millisToMinutesAndSeconds(avg);
 }
 
 //Hugget fra https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
