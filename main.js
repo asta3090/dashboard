@@ -2,9 +2,18 @@
 document.addEventListener("DOMContentLoaded", start);
 
 const endPoint = "https://foobarexam.herokuapp.com/";
+const restDBEndpoint = "https://frontendspring20-f2e0.restdb.io/rest/beers";
+const APIKey = "5e957b2e436377171a0c2346";
 const HTML = {};
 let currentTaps = [];
 let waitingTimes = [0, 0];
+let orderHistory = [];
+let ordersStored = [];
+
+const OrderHistory = {
+  name: "",
+  timesOrdered: 0,
+};
 
 function start() {
   console.log("START");
@@ -40,7 +49,6 @@ function fetchData() {
 }
 
 function showData(data) {
-  console.log(data);
   showOrders(data);
 
   //QUEUE
@@ -115,7 +123,6 @@ function showData(data) {
 }
 
 function showOrders(data) {
-  // console.log(data);
   HTML.dest.innerHTML = "";
   data.queue.forEach((person) => {
     showOrder(person, data);
@@ -137,9 +144,42 @@ function showOrder(person, data) {
     li.textContent = orderItem;
     klon.querySelector("ul").appendChild(li);
   });
+
   HTML.dest.appendChild(klon);
 
+  storeOrder(person);
   waitingTimes.push(timestamp - person.startTime);
+}
+
+function storeOrder(person) {
+  if (ordersStored.includes(person.id) === false) {
+    ordersStored.push(person.id);
+
+    person.order.forEach((orderItem) => {
+      let alreadyInArray = orderHistory.some((historyArr) => {
+        return historyArr.name === orderItem;
+      });
+
+      let orderHistoryItem = Object.create(OrderHistory);
+
+      orderHistoryItem.name = orderItem;
+      orderHistoryItem.timesOrdered = 1;
+
+      if (!alreadyInArray) {
+        orderHistory.push(orderHistoryItem);
+      } else {
+        const objIndex = orderHistory.findIndex(
+          (obj) => obj.name === orderItem
+        );
+
+        let timesOrdered = orderHistory[objIndex].timesOrdered;
+
+        orderHistory[objIndex].timesOrdered = timesOrdered + 1;
+      }
+    });
+
+    console.log(orderHistory);
+  }
 }
 
 function calcAverage() {
@@ -155,3 +195,47 @@ function millisToMinutesAndSeconds(millis) {
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
+
+function updateDatabase(item) {
+  const data = {
+    $inc: {
+      popularity: item.timesOrdered,
+    },
+  };
+
+  const postData = JSON.stringify(data);
+
+  fetch(`${restDBEndpoint}?max=10&q={"name":"${item.name}"}`, {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": `${APIKey}`,
+      "cache-control": "no-cache",
+    },
+  })
+    .then((e) => e.json())
+    .then((e) => {
+      console.log(e);
+
+      let userID = e[0]._id;
+
+      fetch(`${restDBEndpoint}/${userID}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "x-apikey": `${APIKey}`,
+          "cache-control": "no-cache",
+        },
+        body: postData,
+      })
+        .then((e) => e.json())
+        .then((e) => console.log(e));
+    });
+}
+
+setInterval(() => {
+  orderHistory.forEach((historyItem) => {
+    updateDatabase(historyItem);
+  });
+  orderHistory = [];
+}, 300000);
