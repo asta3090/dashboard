@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", start);
 const endPoint = "https://foobarexam.herokuapp.com/";
 const HTML = {};
 let currentTaps = [];
+let waitingTimes = [0, 0];
 
 function start() {
   console.log("START");
@@ -21,9 +22,7 @@ function fetchSVGS() {
   })
     .then((svg) => svg.text())
     .then((svg) => {
-      document
-        .querySelectorAll(".tap-icon")
-        .forEach((tapIcon) => (tapIcon.innerHTML = svg));
+      document.querySelectorAll(".tap-icon").forEach((tapIcon) => (tapIcon.innerHTML = svg));
     });
 }
 
@@ -39,7 +38,7 @@ function fetchData() {
 }
 
 function showData(data) {
-  // console.log(data);
+  console.log(data);
   showOrders(data);
 
   //QUEUE
@@ -51,24 +50,21 @@ function showData(data) {
     HTML.queue.querySelector("p").textContent = "People in line";
   }
 
+  HTML.queue.querySelector("p+p").textContent = "Average queue time: " + calcAverage();
+
   //BARTENDERS
   data.bartenders.forEach((bartender) => {
     const bartenderNumber = data.bartenders.indexOf(bartender);
-    const DOMDest = document.querySelector(
-      `#workerscontainer article:nth-child(${bartenderNumber + 1})`
-    );
+    const DOMDest = document.querySelector(`#workerscontainer article:nth-child(${bartenderNumber + 1})`);
 
-    DOMDest.querySelector("h3").textContent = data.bartenders[
-      bartenderNumber
-    ].name.toUpperCase();
+    DOMDest.querySelector("h3").textContent = data.bartenders[bartenderNumber].name.toUpperCase();
 
     if (data.bartenders[bartenderNumber].status === "WORKING") {
       if (data.bartenders[bartenderNumber].statusDetail === "replaceKeg") {
         DOMDest.querySelector("p").textContent = "REPLACING KEG";
         DOMDest.querySelector("circle").style.fill = "red";
       } else {
-        DOMDest.querySelector("p").textContent =
-          "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
+        DOMDest.querySelector("p").textContent = "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
         DOMDest.querySelector("circle").style.fill = "red";
       }
     } else if (data.bartenders[bartenderNumber].status === "READY") {
@@ -83,22 +79,30 @@ function showData(data) {
   //TAPS
   data.taps.forEach((tap) => {
     const tapNumber = data.taps.indexOf(tap);
-    const DOMDest = document.querySelector(
-      `#tapcontainer article:nth-child(${tapNumber + 1})`
-    );
+    const DOMDest = document.querySelector(`#tapcontainer article:nth-child(${tapNumber + 1})`);
 
     DOMDest.querySelector("h3").textContent = data.taps[tapNumber].beer;
     DOMDest.setAttribute("data-beertype", data.taps[tapNumber].beer);
-    DOMDest.querySelector(".overlay").style.height =
-      (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
-    DOMDest.querySelector(".level").textContent =
-      data.taps[tapNumber].level / 100 + "L";
+    DOMDest.querySelector(".overlay").style.height = (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
+    DOMDest.querySelector(".level").textContent = data.taps[tapNumber].level / 100 + "L";
 
     data.storage.forEach((beer) => {
-      if (beer.name === data.taps[tapNumber].beer) {
+      if (beer.name === data.taps.beer) {
         DOMDest.querySelector(".storage").textContent = beer.amount + " x";
       }
     });
+
+    // EMPTY
+
+    if (tap.level < 1000) {
+      console.log(tap);
+      DOMDest.querySelector(".tap").classList.add("empty");
+    }
+    if (tap.level < 1000) {
+      console.log(tap);
+      DOMDest.querySelector(".level").classList.add("change");
+      DOMDest.querySelector(".storage").classList.add("change");
+    }
 
     if (data.taps[tapNumber].inUse && data.taps[tapNumber].level > 0) {
       DOMDest.querySelector(".tap_svg").classList.remove("inactive");
@@ -114,18 +118,17 @@ function showOrders(data) {
   // console.log(data);
   HTML.dest.innerHTML = "";
   data.queue.forEach((person) => {
-    showOrder(person, data.timestamp);
+    showOrder(person, data);
   });
 }
 
-function showOrder(person, timestamp) {
+function showOrder(person, data) {
+  let timestamp = data.timestamp;
   let klon = HTML.template.cloneNode(true).content;
 
   klon.querySelector("h3").textContent = "ORDER #" + person.id;
   const timeMilli = timestamp - person.startTime;
-  klon.querySelector(".time").textContent = millisToMinutesAndSeconds(
-    timeMilli
-  );
+  klon.querySelector(".time").textContent = millisToMinutesAndSeconds(timeMilli);
 
   person.order.forEach((orderItem) => {
     const li = document.createElement("li");
@@ -133,6 +136,15 @@ function showOrder(person, timestamp) {
     klon.querySelector("ul").appendChild(li);
   });
   HTML.dest.appendChild(klon);
+
+  waitingTimes.push(timestamp - person.startTime);
+}
+
+function calcAverage() {
+  const sum = waitingTimes.reduce((a, b) => a + b);
+  const avg = sum / waitingTimes.length;
+
+  return millisToMinutesAndSeconds(avg);
 }
 
 //Hugget fra https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript

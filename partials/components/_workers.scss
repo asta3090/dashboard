@@ -1,3 +1,6 @@
+@use '../base/vars'as *;
+@use '../base/mixins'as *;
+
 .worker {
   width: 100%;
   background-color: white;

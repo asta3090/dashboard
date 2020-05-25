@@ -1,25 +1,42 @@
 @use '../base/vars' as *;
+@use '../base/mixins'as *;
 
 main {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  grid-gap: 7px;
+  grid-template-columns: 1fr;
   width: 100vw;
-  height: 100vh;
   padding: 7px;
+
+  @include tablet {
+    display: grid;
+    grid-gap: 7px;
+    grid-template-columns: 2fr 1fr;
+  }
+  @include desktop {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    height: 100vh;
+  }
 }
 
 #ordercontainer {
   background-color: $background-color;
-  grid-area: 1/1/7/6;
+
+  @include desktop {
+    grid-area: 1/1/7/6;
+  }
 }
 #queue {
-  grid-area: 1/6/4/8;
+  @include desktop {
+    grid-area: 1/6/4/8;
+  }
 }
 #workerscontainer {
-  grid-area: 4/6/7/8;
+  @include desktop {
+    grid-area: 4/6/7/8;
+  }
 }
 #tapcontainer {
-  grid-area: 7/1/9/8;
+  @include desktop {
+    grid-area: 7/1/9/8;
+  }
 }
