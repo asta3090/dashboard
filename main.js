@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", start);
 const endPoint = "https://foobarexam.herokuapp.com/";
 const restDBEndpoint = "https://frontendspring20-f2e0.restdb.io/rest/beers";
 const APIKey = "5e957b2e436377171a0c2346";
+const updateInterval = 10;
 const HTML = {};
 let currentTaps = [];
 let waitingTimes = [0, 0];
 let orderHistory = [];
 let ordersStored = [];
+let today = new Date().toString().substring(0, 3).toLowerCase();
 
 const OrderHistory = {
   name: "",
@@ -20,6 +22,8 @@ function start() {
   HTML.template = document.querySelector("template");
   HTML.dest = document.querySelector("#ordercontainer");
   HTML.queue = document.querySelector("#queue");
+
+  console.log(today);
 
   fetchSVGS();
   fetchData();
@@ -177,7 +181,7 @@ function storeOrder(person) {
         orderHistory[objIndex].timesOrdered = timesOrdered + 1;
       }
     });
-
+    console.log(ordersStored);
     console.log(orderHistory);
   }
 }
@@ -196,12 +200,54 @@ function millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
 
+function setDatabaseData(item) {
+  if (today === "mon") {
+    return {
+      $inc: {
+        salesMon: item.timesOrdered,
+      },
+    };
+  } else if (today === "tue") {
+    return {
+      $inc: {
+        salesTue: item.timesOrdered,
+      },
+    };
+  } else if (today === "wed") {
+    return {
+      $inc: {
+        salesWed: item.timesOrdered,
+      },
+    };
+  } else if (today === "thu") {
+    return {
+      $inc: {
+        salesThu: item.timesOrdered,
+      },
+    };
+  } else if (today === "fri") {
+    return {
+      $inc: {
+        salesFri: item.timesOrdered,
+      },
+    };
+  } else if (today === "sat") {
+    return {
+      $inc: {
+        salesSat: item.timesOrdered,
+      },
+    };
+  } else if (today === "sun") {
+    return {
+      $inc: {
+        salesSun: item.timesOrdered,
+      },
+    };
+  }
+}
+
 function updateDatabase(item) {
-  const data = {
-    $inc: {
-      popularity: item.timesOrdered,
-    },
-  };
+  const data = setDatabaseData(item);
 
   const postData = JSON.stringify(data);
 
@@ -237,5 +283,7 @@ setInterval(() => {
   orderHistory.forEach((historyItem) => {
     updateDatabase(historyItem);
   });
+  console.log(orderHistory);
   orderHistory = [];
-}, 300000);
+  console.log(`Total orders stored: ${ordersStored.length}`);
+}, updateInterval * 60000);
