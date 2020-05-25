@@ -1,13 +1,24 @@
 @use '../base/vars' as *;
+@use '../base/mixins'as *;
 
 #ordercontainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   grid-column-gap: 7px;
   grid-row-gap: 7px;
   width: 100%;
   height: 100%;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column: 1/3;
+  }
+
+  @include desktop {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column: 1/6;
+  }
 }
 
 .order {
