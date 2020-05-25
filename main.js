@@ -102,14 +102,12 @@ function showData(data) {
 
     // EMPTY
 
-    if (tap.level < 1000) {
+    if (tap.level < 500) {
       console.log(tap);
       DOMDest.querySelector(".tap").classList.add("empty");
-    }
-    if (tap.level < 1000) {
-      console.log(tap);
       DOMDest.querySelector(".level").classList.add("change");
       DOMDest.querySelector(".storage").classList.add("change");
+      DOMDest.querySelector(".keg-icon").src = "svgs/kegblack copy.svg";
     }
 
     if (data.taps[tapNumber].inUse && data.taps[tapNumber].level > 0) {
@@ -166,9 +164,7 @@ function storeOrder(person) {
       if (!alreadyInArray) {
         orderHistory.push(orderHistoryItem);
       } else {
-        const objIndex = orderHistory.findIndex(
-          (obj) => obj.name === orderItem
-        );
+        const objIndex = orderHistory.findIndex((obj) => obj.name === orderItem);
 
         let timesOrdered = orderHistory[objIndex].timesOrdered;
 
