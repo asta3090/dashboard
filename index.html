@@ -5,14 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="styles.scss" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <div
+      class="chart-container hide-block"
+      style="position: relative; height: 90vh; width: 90vw;"
+    >
+      <form action="">
+        <select name="chart" id="chart-select">
+          <option value="today">Today</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </form>
+      <canvas id="myChart"></canvas>
+    </div>
+
     <main>
       <article id="queue">
         <h1></h1>
         <p>People in line</p>
         <p>Average wait time: 1:00</p>
+        <img src="static/svgs/chart.svg" id="chart-icon" alt="charticon" />
       </article>
       <section id="workerscontainer">
         <article class="worker">
