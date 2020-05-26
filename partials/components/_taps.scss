@@ -82,7 +82,11 @@
 }
 
 .empty {
-  animation: blinking 1s infinite;
+  p {
+    content: "!";
+  }
+
+  animation: blinking 2s infinite;
 }
 
 .change {

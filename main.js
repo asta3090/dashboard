@@ -121,12 +121,17 @@ function showData(data) {
 
     // EMPTY
 
-    if (tap.level < 500) {
+    if (tap.level < 600) {
       console.log(tap);
       DOMDest.querySelector(".tap").classList.add("empty");
       DOMDest.querySelector(".level").classList.add("change");
       DOMDest.querySelector(".storage").classList.add("change");
       DOMDest.querySelector(".keg-icon").src = "svgs/kegblack copy.svg";
+    } else {
+      DOMDest.querySelector(".tap").classList.remove("empty");
+      DOMDest.querySelector(".level").classList.remove("change");
+      DOMDest.querySelector(".storage").classList.remove("change");
+      DOMDest.querySelector(".keg-icon").src = "svgs/keg copy.svg";
     }
 
     if (data.taps[tapNumber].inUse && data.taps[tapNumber].level > 0) {
