@@ -313,13 +313,14 @@ function getDatabaseData() {
     .then((e) => e.json())
     .then((e) => {
       console.log(e);
-      showChart(e);
+      HTML.chartIcon.addEventListener("click", () => {
+        document
+          .querySelector(".chart-container")
+          .classList.remove("hide-block");
+        document.querySelector("main").classList.add("hide-block");
+        showChart(e);
+      });
     });
-
-  HTML.chartIcon.addEventListener("click", () => {
-    document.querySelector(".chart-container").classList.remove("hide-block");
-    document.querySelector("main").classList.add("hide-block");
-  });
 }
 
 function showChart(e) {
@@ -332,52 +333,170 @@ function showChart(e) {
   let ctx = document.getElementById("myChart");
   let myChart;
   let weekChart;
-  let myChartHoriz;
 
-  if (window.innerWidth > 730) {
-    myChart = new Chart(ctx, {
-      type: "bar",
+  if (document.querySelector("#chart-select").value === "weekly") {
+    weekChart = new Chart(ctx, {
+      type: "line",
       data: {
         labels: [
-          chartData[0].name,
-          chartData[1].name,
-          chartData[2].name,
-          chartData[3].name,
-          chartData[4].name,
-          chartData[5].name,
-          chartData[6].name,
-          chartData[7].name,
-          chartData[8].name,
-          chartData[9].name,
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
         ],
         datasets: [
           {
-            label: "Beers sold today",
+            backgroundColor: e[0].color,
+            borderColor: e[0].color,
+            fill: false,
+            label: [e[0].name],
             data: [
-              chartData[0].sales,
-              chartData[1].sales,
-              chartData[2].sales,
-              chartData[3].sales,
-              chartData[4].sales,
-              chartData[5].sales,
-              chartData[6].sales,
-              chartData[7].sales,
-              chartData[8].sales,
-              chartData[9].sales,
+              e[0].salesMon,
+              e[0].salesTue,
+              e[0].salesWed,
+              e[0].salesThu,
+              e[0].salesFri,
+              e[0].salesSat,
+              e[0].salesSun,
             ],
-            backgroundColor: [
-              chartData[0].color,
-              chartData[1].color,
-              chartData[2].color,
-              chartData[3].color,
-              chartData[4].color,
-              chartData[5].color,
-              chartData[6].color,
-              chartData[7].color,
-              chartData[8].color,
-              chartData[9].color,
+          },
+          {
+            backgroundColor: e[1].color,
+            borderColor: e[1].color,
+            fill: false,
+            label: [e[1].name],
+            data: [
+              e[1].salesMon,
+              e[1].salesTue,
+              e[1].salesWed,
+              e[1].salesThu,
+              e[1].salesFri,
+              e[1].salesSat,
+              e[1].salesSun,
             ],
-            borderWidth: 1,
+          },
+          {
+            backgroundColor: e[2].color,
+            borderColor: e[2].color,
+            fill: false,
+            label: [e[2].name],
+            data: [
+              e[2].salesMon,
+              e[2].salesTue,
+              e[2].salesWed,
+              e[2].salesThu,
+              e[2].salesFri,
+              e[2].salesSat,
+              e[2].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[3].color,
+            borderColor: e[3].color,
+            fill: false,
+            label: [e[3].name],
+            data: [
+              e[3].salesMon,
+              e[3].salesTue,
+              e[3].salesWed,
+              e[3].salesThu,
+              e[3].salesFri,
+              e[3].salesSat,
+              e[3].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[4].color,
+            borderColor: e[4].color,
+            fill: false,
+            label: [e[4].name],
+            data: [
+              e[4].salesMon,
+              e[4].salesTue,
+              e[4].salesWed,
+              e[4].salesThu,
+              e[4].salesFri,
+              e[4].salesSat,
+              e[4].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[5].color,
+            borderColor: e[5].color,
+            fill: false,
+            label: [e[5].name],
+            data: [
+              e[5].salesMon,
+              e[5].salesTue,
+              e[5].salesWed,
+              e[5].salesThu,
+              e[5].salesFri,
+              e[5].salesSat,
+              e[5].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[6].color,
+            borderColor: e[6].color,
+            fill: false,
+            label: [e[6].name],
+            data: [
+              e[6].salesMon,
+              e[6].salesTue,
+              e[6].salesWed,
+              e[6].salesThu,
+              e[6].salesFri,
+              e[6].salesSat,
+              e[6].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[7].color,
+            borderColor: e[7].color,
+            fill: false,
+            label: [e[7].name],
+            data: [
+              e[7].salesMon,
+              e[7].salesTue,
+              e[7].salesWed,
+              e[7].salesThu,
+              e[7].salesFri,
+              e[7].salesSat,
+              e[7].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[8].color,
+            borderColor: e[8].color,
+            fill: false,
+            label: [e[8].name],
+            data: [
+              e[8].salesMon,
+              e[8].salesTue,
+              e[8].salesWed,
+              e[8].salesThu,
+              e[8].salesFri,
+              e[8].salesSat,
+              e[8].salesSun,
+            ],
+          },
+          {
+            backgroundColor: e[9].color,
+            borderColor: e[9].color,
+            fill: false,
+            label: [e[9].name],
+            data: [
+              e[9].salesMon,
+              e[9].salesTue,
+              e[9].salesWed,
+              e[9].salesThu,
+              e[9].salesFri,
+              e[9].salesSat,
+              e[9].salesSun,
+            ],
           },
         ],
       },
@@ -386,7 +505,7 @@ function showChart(e) {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Beers sold today",
+          text: "This weeks sales",
           fontSize: 35,
         },
         legend: {
@@ -395,8 +514,8 @@ function showChart(e) {
       },
     });
   } else {
-    myChartHoriz = new Chart(ctx, {
-      type: "horizontalBar",
+    myChart = new Chart(ctx, {
+      type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
         labels: [
           chartData[0].name,
@@ -455,6 +574,11 @@ function showChart(e) {
       },
     });
   }
+
+  document.querySelector("#back-btn").addEventListener("click", () => {
+    document.querySelector(".chart-container").classList.add("hide-block");
+    document.querySelector("main").classList.remove("hide-block");
+  });
 
   document.querySelector("#chart-select").addEventListener("change", () => {
     if (document.querySelector("#chart-select").value === "weekly") {
@@ -639,127 +763,65 @@ function showChart(e) {
       });
     } else {
       weekChart.destroy();
-      if (window.innerWidth > 730) {
-        myChart = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: [
-              chartData[0].name,
-              chartData[1].name,
-              chartData[2].name,
-              chartData[3].name,
-              chartData[4].name,
-              chartData[5].name,
-              chartData[6].name,
-              chartData[7].name,
-              chartData[8].name,
-              chartData[9].name,
-            ],
-            datasets: [
-              {
-                label: "Beers sold today",
-                data: [
-                  chartData[0].sales,
-                  chartData[1].sales,
-                  chartData[2].sales,
-                  chartData[3].sales,
-                  chartData[4].sales,
-                  chartData[5].sales,
-                  chartData[6].sales,
-                  chartData[7].sales,
-                  chartData[8].sales,
-                  chartData[9].sales,
-                ],
-                backgroundColor: [
-                  chartData[0].color,
-                  chartData[1].color,
-                  chartData[2].color,
-                  chartData[3].color,
-                  chartData[4].color,
-                  chartData[5].color,
-                  chartData[6].color,
-                  chartData[7].color,
-                  chartData[8].color,
-                  chartData[9].color,
-                ],
-                borderWidth: 1,
-              },
-            ],
-          },
+      myChart = new Chart(ctx, {
+        type: window.innerWidth > 730 ? "bar" : "horizontalBar",
+        data: {
+          labels: [
+            chartData[0].name,
+            chartData[1].name,
+            chartData[2].name,
+            chartData[3].name,
+            chartData[4].name,
+            chartData[5].name,
+            chartData[6].name,
+            chartData[7].name,
+            chartData[8].name,
+            chartData[9].name,
+          ],
+          datasets: [
+            {
+              label: "Beers sold today",
+              data: [
+                chartData[0].sales,
+                chartData[1].sales,
+                chartData[2].sales,
+                chartData[3].sales,
+                chartData[4].sales,
+                chartData[5].sales,
+                chartData[6].sales,
+                chartData[7].sales,
+                chartData[8].sales,
+                chartData[9].sales,
+              ],
+              backgroundColor: [
+                chartData[0].color,
+                chartData[1].color,
+                chartData[2].color,
+                chartData[3].color,
+                chartData[4].color,
+                chartData[5].color,
+                chartData[6].color,
+                chartData[7].color,
+                chartData[8].color,
+                chartData[9].color,
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
 
-          options: {
-            maintainAspectRatio: false,
-            title: {
-              display: true,
-              text: "Beers sold today",
-              fontSize: 35,
-            },
-            legend: {
-              display: false,
-            },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "Beers sold today",
+            fontSize: 35,
           },
-        });
-      } else {
-        myChartHoriz = new Chart(ctx, {
-          type: "horizontalBar",
-          data: {
-            labels: [
-              chartData[0].name,
-              chartData[1].name,
-              chartData[2].name,
-              chartData[3].name,
-              chartData[4].name,
-              chartData[5].name,
-              chartData[6].name,
-              chartData[7].name,
-              chartData[8].name,
-              chartData[9].name,
-            ],
-            datasets: [
-              {
-                label: "Beers sold today",
-                data: [
-                  chartData[0].sales,
-                  chartData[1].sales,
-                  chartData[2].sales,
-                  chartData[3].sales,
-                  chartData[4].sales,
-                  chartData[5].sales,
-                  chartData[6].sales,
-                  chartData[7].sales,
-                  chartData[8].sales,
-                  chartData[9].sales,
-                ],
-                backgroundColor: [
-                  chartData[0].color,
-                  chartData[1].color,
-                  chartData[2].color,
-                  chartData[3].color,
-                  chartData[4].color,
-                  chartData[5].color,
-                  chartData[6].color,
-                  chartData[7].color,
-                  chartData[8].color,
-                  chartData[9].color,
-                ],
-                borderWidth: 1,
-              },
-            ],
+          legend: {
+            display: false,
           },
-
-          options: {
-            maintainAspectRatio: false,
-            title: {
-              display: true,
-              text: "Beers sold today",
-              fontSize: 35,
-            },
-            legend: {
-              display: false,
-            },
-          },
-        });
-      }
+        },
+      });
     }
   });
 }
