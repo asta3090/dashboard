@@ -38,9 +38,7 @@ function fetchSVGS() {
   })
     .then((svg) => svg.text())
     .then((svg) => {
-      document
-        .querySelectorAll(".tap-icon")
-        .forEach((tapIcon) => (tapIcon.innerHTML = svg));
+      document.querySelectorAll(".tap-icon").forEach((tapIcon) => (tapIcon.innerHTML = svg));
     });
 }
 
@@ -67,27 +65,21 @@ function showData(data) {
     HTML.queue.querySelector("p").textContent = "People in line";
   }
 
-  HTML.queue.querySelector("p+p").textContent =
-    "Average queue time: " + calcAverage();
+  HTML.queue.querySelector("p+p").textContent = "Average queue time: " + calcAverage();
 
   //BARTENDERS
   data.bartenders.forEach((bartender) => {
     const bartenderNumber = data.bartenders.indexOf(bartender);
-    const DOMDest = document.querySelector(
-      `#workerscontainer article:nth-child(${bartenderNumber + 1})`
-    );
+    const DOMDest = document.querySelector(`#workerscontainer article:nth-child(${bartenderNumber + 1})`);
 
-    DOMDest.querySelector("h3").textContent = data.bartenders[
-      bartenderNumber
-    ].name.toUpperCase();
+    DOMDest.querySelector("h3").textContent = data.bartenders[bartenderNumber].name.toUpperCase();
 
     if (data.bartenders[bartenderNumber].status === "WORKING") {
       if (data.bartenders[bartenderNumber].statusDetail === "replaceKeg") {
         DOMDest.querySelector("p").textContent = "REPLACING KEG";
         DOMDest.querySelector("circle").style.fill = "red";
       } else {
-        DOMDest.querySelector("p").textContent =
-          "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
+        DOMDest.querySelector("p").textContent = "SERVING ORDER #" + data.bartenders[bartenderNumber].servingCustomer;
         DOMDest.querySelector("circle").style.fill = "red";
       }
     } else if (data.bartenders[bartenderNumber].status === "READY") {
@@ -102,16 +94,12 @@ function showData(data) {
   //TAPS
   data.taps.forEach((tap) => {
     const tapNumber = data.taps.indexOf(tap);
-    const DOMDest = document.querySelector(
-      `#tapcontainer article:nth-child(${tapNumber + 1})`
-    );
+    const DOMDest = document.querySelector(`#tapcontainer article:nth-child(${tapNumber + 1})`);
 
     DOMDest.querySelector("h3").textContent = data.taps[tapNumber].beer;
     DOMDest.setAttribute("data-beertype", data.taps[tapNumber].beer);
-    DOMDest.querySelector(".overlay").style.height =
-      (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
-    DOMDest.querySelector(".level").textContent =
-      data.taps[tapNumber].level / 100 + "L";
+    DOMDest.querySelector(".overlay").style.height = (data.taps[tapNumber].level / data.taps[0].capacity) * 100 + "%";
+    DOMDest.querySelector(".level").textContent = data.taps[tapNumber].level / 100 + "L";
 
     data.storage.forEach((beer) => {
       if (beer.name === data.taps.beer) {
@@ -157,9 +145,7 @@ function showOrder(person, data) {
 
   klon.querySelector("h3").textContent = "ORDER #" + person.id;
   const timeMilli = timestamp - person.startTime;
-  klon.querySelector(".time").textContent = millisToMinutesAndSeconds(
-    timeMilli
-  );
+  klon.querySelector(".time").textContent = millisToMinutesAndSeconds(timeMilli);
 
   person.order.forEach((orderItem) => {
     const li = document.createElement("li");
@@ -190,9 +176,7 @@ function storeOrder(person) {
       if (!alreadyInArray) {
         orderHistory.push(orderHistoryItem);
       } else {
-        const objIndex = orderHistory.findIndex(
-          (obj) => obj.name === orderItem
-        );
+        const objIndex = orderHistory.findIndex((obj) => obj.name === orderItem);
 
         let timesOrdered = orderHistory[objIndex].timesOrdered;
 
@@ -319,9 +303,7 @@ function getDatabaseData() {
     .then((e) => {
       console.log(e);
       HTML.chartIcon.addEventListener("click", () => {
-        document
-          .querySelector(".chart-container")
-          .classList.remove("hide-block");
+        document.querySelector(".chart-container").classList.remove("hide-block");
         document.querySelector("main").classList.add("hide-block");
         showChart(e);
       });
@@ -343,165 +325,77 @@ function showChart(e) {
     weekChart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ],
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: [
           {
             backgroundColor: e[0].color,
             borderColor: e[0].color,
             fill: false,
             label: [e[0].name],
-            data: [
-              e[0].salesMon,
-              e[0].salesTue,
-              e[0].salesWed,
-              e[0].salesThu,
-              e[0].salesFri,
-              e[0].salesSat,
-              e[0].salesSun,
-            ],
+            data: [e[0].salesMon, e[0].salesTue, e[0].salesWed, e[0].salesThu, e[0].salesFri, e[0].salesSat, e[0].salesSun],
           },
           {
             backgroundColor: e[1].color,
             borderColor: e[1].color,
             fill: false,
             label: [e[1].name],
-            data: [
-              e[1].salesMon,
-              e[1].salesTue,
-              e[1].salesWed,
-              e[1].salesThu,
-              e[1].salesFri,
-              e[1].salesSat,
-              e[1].salesSun,
-            ],
+            data: [e[1].salesMon, e[1].salesTue, e[1].salesWed, e[1].salesThu, e[1].salesFri, e[1].salesSat, e[1].salesSun],
           },
           {
             backgroundColor: e[2].color,
             borderColor: e[2].color,
             fill: false,
             label: [e[2].name],
-            data: [
-              e[2].salesMon,
-              e[2].salesTue,
-              e[2].salesWed,
-              e[2].salesThu,
-              e[2].salesFri,
-              e[2].salesSat,
-              e[2].salesSun,
-            ],
+            data: [e[2].salesMon, e[2].salesTue, e[2].salesWed, e[2].salesThu, e[2].salesFri, e[2].salesSat, e[2].salesSun],
           },
           {
             backgroundColor: e[3].color,
             borderColor: e[3].color,
             fill: false,
             label: [e[3].name],
-            data: [
-              e[3].salesMon,
-              e[3].salesTue,
-              e[3].salesWed,
-              e[3].salesThu,
-              e[3].salesFri,
-              e[3].salesSat,
-              e[3].salesSun,
-            ],
+            data: [e[3].salesMon, e[3].salesTue, e[3].salesWed, e[3].salesThu, e[3].salesFri, e[3].salesSat, e[3].salesSun],
           },
           {
             backgroundColor: e[4].color,
             borderColor: e[4].color,
             fill: false,
             label: [e[4].name],
-            data: [
-              e[4].salesMon,
-              e[4].salesTue,
-              e[4].salesWed,
-              e[4].salesThu,
-              e[4].salesFri,
-              e[4].salesSat,
-              e[4].salesSun,
-            ],
+            data: [e[4].salesMon, e[4].salesTue, e[4].salesWed, e[4].salesThu, e[4].salesFri, e[4].salesSat, e[4].salesSun],
           },
           {
             backgroundColor: e[5].color,
             borderColor: e[5].color,
             fill: false,
             label: [e[5].name],
-            data: [
-              e[5].salesMon,
-              e[5].salesTue,
-              e[5].salesWed,
-              e[5].salesThu,
-              e[5].salesFri,
-              e[5].salesSat,
-              e[5].salesSun,
-            ],
+            data: [e[5].salesMon, e[5].salesTue, e[5].salesWed, e[5].salesThu, e[5].salesFri, e[5].salesSat, e[5].salesSun],
           },
           {
             backgroundColor: e[6].color,
             borderColor: e[6].color,
             fill: false,
             label: [e[6].name],
-            data: [
-              e[6].salesMon,
-              e[6].salesTue,
-              e[6].salesWed,
-              e[6].salesThu,
-              e[6].salesFri,
-              e[6].salesSat,
-              e[6].salesSun,
-            ],
+            data: [e[6].salesMon, e[6].salesTue, e[6].salesWed, e[6].salesThu, e[6].salesFri, e[6].salesSat, e[6].salesSun],
           },
           {
             backgroundColor: e[7].color,
             borderColor: e[7].color,
             fill: false,
             label: [e[7].name],
-            data: [
-              e[7].salesMon,
-              e[7].salesTue,
-              e[7].salesWed,
-              e[7].salesThu,
-              e[7].salesFri,
-              e[7].salesSat,
-              e[7].salesSun,
-            ],
+            data: [e[7].salesMon, e[7].salesTue, e[7].salesWed, e[7].salesThu, e[7].salesFri, e[7].salesSat, e[7].salesSun],
           },
           {
             backgroundColor: e[8].color,
             borderColor: e[8].color,
             fill: false,
             label: [e[8].name],
-            data: [
-              e[8].salesMon,
-              e[8].salesTue,
-              e[8].salesWed,
-              e[8].salesThu,
-              e[8].salesFri,
-              e[8].salesSat,
-              e[8].salesSun,
-            ],
+            data: [e[8].salesMon, e[8].salesTue, e[8].salesWed, e[8].salesThu, e[8].salesFri, e[8].salesSat, e[8].salesSun],
           },
           {
             backgroundColor: e[9].color,
             borderColor: e[9].color,
             fill: false,
             label: [e[9].name],
-            data: [
-              e[9].salesMon,
-              e[9].salesTue,
-              e[9].salesWed,
-              e[9].salesThu,
-              e[9].salesFri,
-              e[9].salesSat,
-              e[9].salesSun,
-            ],
+            data: [e[9].salesMon, e[9].salesTue, e[9].salesWed, e[9].salesThu, e[9].salesFri, e[9].salesSat, e[9].salesSun],
           },
         ],
       },
@@ -522,45 +416,12 @@ function showChart(e) {
     myChart = new Chart(ctx, {
       type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
-        labels: [
-          chartData[0].name,
-          chartData[1].name,
-          chartData[2].name,
-          chartData[3].name,
-          chartData[4].name,
-          chartData[5].name,
-          chartData[6].name,
-          chartData[7].name,
-          chartData[8].name,
-          chartData[9].name,
-        ],
+        labels: [chartData[0].name, chartData[1].name, chartData[2].name, chartData[3].name, chartData[4].name, chartData[5].name, chartData[6].name, chartData[7].name, chartData[8].name, chartData[9].name],
         datasets: [
           {
             label: "Beers sold today",
-            data: [
-              chartData[0].sales,
-              chartData[1].sales,
-              chartData[2].sales,
-              chartData[3].sales,
-              chartData[4].sales,
-              chartData[5].sales,
-              chartData[6].sales,
-              chartData[7].sales,
-              chartData[8].sales,
-              chartData[9].sales,
-            ],
-            backgroundColor: [
-              chartData[0].color,
-              chartData[1].color,
-              chartData[2].color,
-              chartData[3].color,
-              chartData[4].color,
-              chartData[5].color,
-              chartData[6].color,
-              chartData[7].color,
-              chartData[8].color,
-              chartData[9].color,
-            ],
+            data: [chartData[0].sales, chartData[1].sales, chartData[2].sales, chartData[3].sales, chartData[4].sales, chartData[5].sales, chartData[6].sales, chartData[7].sales, chartData[8].sales, chartData[9].sales],
+            backgroundColor: [chartData[0].color, chartData[1].color, chartData[2].color, chartData[3].color, chartData[4].color, chartData[5].color, chartData[6].color, chartData[7].color, chartData[8].color, chartData[9].color],
             borderWidth: 1,
           },
         ],
@@ -591,165 +452,77 @@ function showChart(e) {
       weekChart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-          ],
+          labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
           datasets: [
             {
               backgroundColor: e[0].color,
               borderColor: e[0].color,
               fill: false,
               label: [e[0].name],
-              data: [
-                e[0].salesMon,
-                e[0].salesTue,
-                e[0].salesWed,
-                e[0].salesThu,
-                e[0].salesFri,
-                e[0].salesSat,
-                e[0].salesSun,
-              ],
+              data: [e[0].salesMon, e[0].salesTue, e[0].salesWed, e[0].salesThu, e[0].salesFri, e[0].salesSat, e[0].salesSun],
             },
             {
               backgroundColor: e[1].color,
               borderColor: e[1].color,
               fill: false,
               label: [e[1].name],
-              data: [
-                e[1].salesMon,
-                e[1].salesTue,
-                e[1].salesWed,
-                e[1].salesThu,
-                e[1].salesFri,
-                e[1].salesSat,
-                e[1].salesSun,
-              ],
+              data: [e[1].salesMon, e[1].salesTue, e[1].salesWed, e[1].salesThu, e[1].salesFri, e[1].salesSat, e[1].salesSun],
             },
             {
               backgroundColor: e[2].color,
               borderColor: e[2].color,
               fill: false,
               label: [e[2].name],
-              data: [
-                e[2].salesMon,
-                e[2].salesTue,
-                e[2].salesWed,
-                e[2].salesThu,
-                e[2].salesFri,
-                e[2].salesSat,
-                e[2].salesSun,
-              ],
+              data: [e[2].salesMon, e[2].salesTue, e[2].salesWed, e[2].salesThu, e[2].salesFri, e[2].salesSat, e[2].salesSun],
             },
             {
               backgroundColor: e[3].color,
               borderColor: e[3].color,
               fill: false,
               label: [e[3].name],
-              data: [
-                e[3].salesMon,
-                e[3].salesTue,
-                e[3].salesWed,
-                e[3].salesThu,
-                e[3].salesFri,
-                e[3].salesSat,
-                e[3].salesSun,
-              ],
+              data: [e[3].salesMon, e[3].salesTue, e[3].salesWed, e[3].salesThu, e[3].salesFri, e[3].salesSat, e[3].salesSun],
             },
             {
               backgroundColor: e[4].color,
               borderColor: e[4].color,
               fill: false,
               label: [e[4].name],
-              data: [
-                e[4].salesMon,
-                e[4].salesTue,
-                e[4].salesWed,
-                e[4].salesThu,
-                e[4].salesFri,
-                e[4].salesSat,
-                e[4].salesSun,
-              ],
+              data: [e[4].salesMon, e[4].salesTue, e[4].salesWed, e[4].salesThu, e[4].salesFri, e[4].salesSat, e[4].salesSun],
             },
             {
               backgroundColor: e[5].color,
               borderColor: e[5].color,
               fill: false,
               label: [e[5].name],
-              data: [
-                e[5].salesMon,
-                e[5].salesTue,
-                e[5].salesWed,
-                e[5].salesThu,
-                e[5].salesFri,
-                e[5].salesSat,
-                e[5].salesSun,
-              ],
+              data: [e[5].salesMon, e[5].salesTue, e[5].salesWed, e[5].salesThu, e[5].salesFri, e[5].salesSat, e[5].salesSun],
             },
             {
               backgroundColor: e[6].color,
               borderColor: e[6].color,
               fill: false,
               label: [e[6].name],
-              data: [
-                e[6].salesMon,
-                e[6].salesTue,
-                e[6].salesWed,
-                e[6].salesThu,
-                e[6].salesFri,
-                e[6].salesSat,
-                e[6].salesSun,
-              ],
+              data: [e[6].salesMon, e[6].salesTue, e[6].salesWed, e[6].salesThu, e[6].salesFri, e[6].salesSat, e[6].salesSun],
             },
             {
               backgroundColor: e[7].color,
               borderColor: e[7].color,
               fill: false,
               label: [e[7].name],
-              data: [
-                e[7].salesMon,
-                e[7].salesTue,
-                e[7].salesWed,
-                e[7].salesThu,
-                e[7].salesFri,
-                e[7].salesSat,
-                e[7].salesSun,
-              ],
+              data: [e[7].salesMon, e[7].salesTue, e[7].salesWed, e[7].salesThu, e[7].salesFri, e[7].salesSat, e[7].salesSun],
             },
             {
               backgroundColor: e[8].color,
               borderColor: e[8].color,
               fill: false,
               label: [e[8].name],
-              data: [
-                e[8].salesMon,
-                e[8].salesTue,
-                e[8].salesWed,
-                e[8].salesThu,
-                e[8].salesFri,
-                e[8].salesSat,
-                e[8].salesSun,
-              ],
+              data: [e[8].salesMon, e[8].salesTue, e[8].salesWed, e[8].salesThu, e[8].salesFri, e[8].salesSat, e[8].salesSun],
             },
             {
               backgroundColor: e[9].color,
               borderColor: e[9].color,
               fill: false,
               label: [e[9].name],
-              data: [
-                e[9].salesMon,
-                e[9].salesTue,
-                e[9].salesWed,
-                e[9].salesThu,
-                e[9].salesFri,
-                e[9].salesSat,
-                e[9].salesSun,
-              ],
+              data: [e[9].salesMon, e[9].salesTue, e[9].salesWed, e[9].salesThu, e[9].salesFri, e[9].salesSat, e[9].salesSun],
             },
           ],
         },
@@ -771,45 +544,12 @@ function showChart(e) {
       myChart = new Chart(ctx, {
         type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
-          labels: [
-            chartData[0].name,
-            chartData[1].name,
-            chartData[2].name,
-            chartData[3].name,
-            chartData[4].name,
-            chartData[5].name,
-            chartData[6].name,
-            chartData[7].name,
-            chartData[8].name,
-            chartData[9].name,
-          ],
+          labels: [chartData[0].name, chartData[1].name, chartData[2].name, chartData[3].name, chartData[4].name, chartData[5].name, chartData[6].name, chartData[7].name, chartData[8].name, chartData[9].name],
           datasets: [
             {
               label: "Beers sold today",
-              data: [
-                chartData[0].sales,
-                chartData[1].sales,
-                chartData[2].sales,
-                chartData[3].sales,
-                chartData[4].sales,
-                chartData[5].sales,
-                chartData[6].sales,
-                chartData[7].sales,
-                chartData[8].sales,
-                chartData[9].sales,
-              ],
-              backgroundColor: [
-                chartData[0].color,
-                chartData[1].color,
-                chartData[2].color,
-                chartData[3].color,
-                chartData[4].color,
-                chartData[5].color,
-                chartData[6].color,
-                chartData[7].color,
-                chartData[8].color,
-                chartData[9].color,
-              ],
+              data: [chartData[0].sales, chartData[1].sales, chartData[2].sales, chartData[3].sales, chartData[4].sales, chartData[5].sales, chartData[6].sales, chartData[7].sales, chartData[8].sales, chartData[9].sales],
+              backgroundColor: [chartData[0].color, chartData[1].color, chartData[2].color, chartData[3].color, chartData[4].color, chartData[5].color, chartData[6].color, chartData[7].color, chartData[8].color, chartData[9].color],
               borderWidth: 1,
             },
           ],
