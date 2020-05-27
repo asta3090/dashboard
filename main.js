@@ -561,7 +561,6 @@ function showChart(e) {
               chartData[8].color,
               chartData[9].color,
             ],
-            borderWidth: 1,
           },
         ],
       },
