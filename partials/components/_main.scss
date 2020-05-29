@@ -6,6 +6,16 @@ main {
   width: 100vw;
   padding: 7px;
 
+  h2 {
+    @include tablet {
+      margin-bottom: 0;
+    }
+
+    @include desktop {
+      display: none;
+    }
+  }
+
   @include tablet {
     display: grid;
     grid-gap: 7px;

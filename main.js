@@ -7,7 +7,6 @@ const restDBEndpoint = "https://frontendspring20-f2e0.restdb.io/rest/beers";
 const APIKey = "5e957b2e436377171a0c2346";
 const updateInterval = 1;
 const HTML = {};
-let currentTaps = [];
 let waitingTimes = [0, 0];
 let orderHistory = [];
 let ordersStored = [];
@@ -131,7 +130,7 @@ function showData(data) {
 
     // EMPTY
 
-    if (tap.level < 600) {
+    if (tap.level < 500) {
       DOMDest.querySelector(".tap").classList.add("empty");
       DOMDest.querySelector(".level").classList.add("change");
       DOMDest.querySelector(".storage").classList.add("change");
@@ -316,7 +315,9 @@ function getDatabaseData() {
     .then((e) => {
       console.log("Database data:");
       console.log(e);
+
       HTML.chartIcon.addEventListener("click", () => {
+        console.log("click chart");
         document
           .querySelector(".chart-container")
           .classList.remove("hide-block");
@@ -508,6 +509,7 @@ function showChart(e) {
           display: true,
           text: "This weeks sales",
           fontSize: 35,
+          fontColor: "#000",
         },
         legend: {
           display: false,
@@ -567,6 +569,7 @@ function showChart(e) {
           display: true,
           text: "Beers sold today",
           fontSize: 35,
+          fontColor: "#000",
         },
         legend: {
           display: false,
@@ -755,6 +758,7 @@ function showChart(e) {
             display: true,
             text: "This weeks sales",
             fontSize: 35,
+            fontColor: "#000",
           },
           legend: {
             display: false,
@@ -816,6 +820,7 @@ function showChart(e) {
             display: true,
             text: "Beers sold today",
             fontSize: 35,
+            fontColor: "#000",
           },
           legend: {
             display: false,
