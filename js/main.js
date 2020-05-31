@@ -12,6 +12,11 @@ let orderHistory = [];
 let ordersStored = [];
 let today = new Date().toString().substring(0, 3).toLowerCase();
 
+setInterval(() => {
+  const wait = document.getElementById("wait");
+  wait.innerHTML.length > 2 ? (wait.innerHTML = "") : (wait.innerHTML += ".");
+}, 500);
+
 const OrderHistory = {
   name: "",
   timesOrdered: 0,
@@ -23,6 +28,8 @@ function start() {
   HTML.dest = document.querySelector("#ordercontainer");
   HTML.queue = document.querySelector("#queue");
   HTML.chartIcon = document.querySelector("#chart-icon");
+  HTML.main = document.querySelector("main");
+  HTML.loader = document.querySelector("#loader_container");
 
   console.log(today);
 
@@ -55,16 +62,25 @@ function fetchData() {
   fetch(endPoint, {
     method: "get",
   })
-    .then((data) => data.json())
+    .then(chechError)
     .then((data) => {
       showData(data);
       setTimeout(fetchData, 1000);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
 
-function showData(data) {
-  showOrders(data);
+function chechError(response) {
+  if (response.status >= 200 && response.status <= 299) {
+    return response.json();
+  } else {
+    throw Error(response.statusText);
+  }
+}
 
+function showData(data) {
   //QUEUE
   const queueLength = data.queue.length;
   HTML.queue.querySelector("h1").textContent = queueLength;
@@ -73,7 +89,7 @@ function showData(data) {
   } else {
     HTML.queue.querySelector("p").textContent = "People in line";
   }
-
+  showOrders(data);
   HTML.queue.querySelector("p+p").textContent =
     "Average queue time: " + calcAverage();
 
@@ -147,10 +163,24 @@ function showData(data) {
       DOMDest.querySelector(".tap_svg").classList.add("inactive");
     }
   });
+
+  HTML.main.setAttribute("loaded", true);
+
+  if (
+    HTML.loader.getAttribute("loaded") == "true" &&
+    document.querySelector(".chart-container").classList.contains("hide-block")
+  ) {
+    console.log("loader og main loaded");
+    HTML.loader.className = "hide-block";
+    HTML.main.className = "show-block";
+  }
 }
 
 function showOrders(data) {
   HTML.dest.innerHTML = "";
+  if (data.queue.length > 12) {
+    data.queue.length = 12;
+  }
   data.queue.forEach((person) => {
     showOrder(person, data);
   });
@@ -175,7 +205,7 @@ function showOrder(person, data) {
   HTML.dest.appendChild(klon);
 
   storeOrder(person);
-  waitingTimes.push(timestamp - person.startTime);
+  waitingTimes.push(timeMilli);
 }
 
 function storeOrder(person) {

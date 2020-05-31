@@ -10,6 +10,8 @@ let today = new Date().toString().substring(0, 3).toLowerCase();
 function start() {
   console.log("start chart");
   HTML.chartIcon = document.querySelector("#chart-icon");
+  HTML.loader = document.querySelector("#loader_container");
+  HTML.main = document.querySelector("main");
 
   getDatabaseData();
   resetDatabase();
@@ -28,6 +30,14 @@ function getDatabaseData() {
     .then((e) => {
       console.log("Database data:");
       console.log(e);
+
+      HTML.loader.setAttribute("loaded", true);
+
+      if (HTML.main.getAttribute("loaded") == "true") {
+        console.log("main og loader loaded");
+        HTML.loader.className = "hide-block";
+        HTML.main.className = "show-block";
+      }
 
       HTML.chartIcon.addEventListener("click", () => {
         console.log("click chart");
