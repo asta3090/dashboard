@@ -1,4 +1,5 @@
 "use strict";
+import { gsap } from "gsap";
 
 document.addEventListener("DOMContentLoaded", start);
 
@@ -155,7 +156,7 @@ function showData(data) {
       DOMDest.querySelector(".keg-icon").src = "svgs/keg copy.svg";
     }
 
-    if (data.taps[tapNumber].inUse && data.taps[tapNumber].level > 0) {
+    if (tap.inUse && tap.level > 0) {
       DOMDest.querySelector(".tap_svg").classList.remove("inactive");
       DOMDest.querySelector(".tap_svg").classList.add("active");
     } else {
@@ -170,7 +171,6 @@ function showData(data) {
     HTML.loader.getAttribute("loaded") == "true" &&
     document.querySelector(".chart-container").classList.contains("hide-block")
   ) {
-    console.log("loader og main loaded");
     HTML.loader.className = "hide-block";
     HTML.main.className = "show-block";
   }
