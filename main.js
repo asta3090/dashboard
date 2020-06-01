@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", start);
 const endPoint = "https://foobarexam.herokuapp.com/";
 const restDBEndpoint = "https://frontendspring20-f2e0.restdb.io/rest/beers";
 const APIKey = "5e957b2e436377171a0c2346";
-const updateInterval = 10;
+const updateInterval = 1;
 const HTML = {};
 let currentTaps = [];
 let waitingTimes = [0, 0];
@@ -27,9 +27,19 @@ function start() {
 
   console.log(today);
 
+  setInterval(() => {
+    orderHistory.forEach((historyItem) => {
+      updateDatabase(historyItem);
+    });
+    orderHistory = [];
+    console.log("Updating database");
+    console.log(`Total orders stored: ${ordersStored.length}`);
+  }, updateInterval * 60000);
+
   fetchSVGS();
   fetchData();
   getDatabaseData();
+  resetDatabase();
 }
 
 function fetchSVGS() {
@@ -110,7 +120,6 @@ function showData(data) {
     // EMPTY
 
     if (tap.level < 600) {
-      console.log(tap);
       DOMDest.querySelector(".tap").classList.add("empty");
       DOMDest.querySelector(".level").classList.add("change");
       DOMDest.querySelector(".storage").classList.add("change");
@@ -168,12 +177,11 @@ function storeOrder(person) {
         return historyArr.name === orderItem;
       });
 
-      let orderHistoryItem = Object.create(OrderHistory);
-
-      orderHistoryItem.name = orderItem;
-      orderHistoryItem.timesOrdered = 1;
-
       if (!alreadyInArray) {
+        let orderHistoryItem = Object.create(OrderHistory);
+        orderHistoryItem.name = orderItem;
+        orderHistoryItem.timesOrdered = 1;
+
         orderHistory.push(orderHistoryItem);
       } else {
         const objIndex = orderHistory.findIndex((obj) => obj.name === orderItem);
@@ -183,8 +191,6 @@ function storeOrder(person) {
         orderHistory[objIndex].timesOrdered = timesOrdered + 1;
       }
     });
-    console.log(ordersStored);
-    console.log(orderHistory);
   }
 }
 
@@ -281,15 +287,6 @@ function updateDatabase(item) {
     });
 }
 
-setInterval(() => {
-  orderHistory.forEach((historyItem) => {
-    updateDatabase(historyItem);
-  });
-  console.log(orderHistory);
-  orderHistory = [];
-  console.log(`Total orders stored: ${ordersStored.length}`);
-}, updateInterval * 60000);
-
 function getDatabaseData() {
   fetch(`${restDBEndpoint}?max=10`, {
     method: "get",
@@ -301,6 +298,7 @@ function getDatabaseData() {
   })
     .then((e) => e.json())
     .then((e) => {
+      console.log("Database data:");
       console.log(e);
       HTML.chartIcon.addEventListener("click", () => {
         document.querySelector(".chart-container").classList.remove("hide-block");
@@ -312,8 +310,6 @@ function getDatabaseData() {
 
 function showChart(e) {
   const chartData = createChartData(e);
-
-  console.log(chartData.name);
 
   Chart.defaults.global.defaultFontFamily = '"Roboto"';
 
@@ -422,7 +418,6 @@ function showChart(e) {
             label: "Beers sold today",
             data: [chartData[0].sales, chartData[1].sales, chartData[2].sales, chartData[3].sales, chartData[4].sales, chartData[5].sales, chartData[6].sales, chartData[7].sales, chartData[8].sales, chartData[9].sales],
             backgroundColor: [chartData[0].color, chartData[1].color, chartData[2].color, chartData[3].color, chartData[4].color, chartData[5].color, chartData[6].color, chartData[7].color, chartData[8].color, chartData[9].color],
-            borderWidth: 1,
           },
         ],
       },
@@ -975,5 +970,53 @@ function createChartData(e) {
     const sortedChartData = localChartData.sort(compareNumbers);
 
     return sortedChartData;
+  }
+}
+
+function resetDatabase() {
+  if (today === "mon") {
+    setInterval(function () {
+      var date = new Date();
+      if (date.getHours() === 10 && date.getMinutes() === 0) {
+        console.log("Resetting database");
+        const data = {
+          salesMon: 0,
+          salesTue: 0,
+          salesWed: 0,
+          salesThu: 0,
+          salesFri: 0,
+          salesSat: 0,
+          salesSun: 0,
+        };
+
+        const postData = JSON.stringify(data);
+
+        fetch(`https://frontendspring20-f2e0.restdb.io/rest/beers?max=10`, {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-apikey": `5e957b2e436377171a0c2346`,
+            "cache-control": "no-cache",
+          },
+        })
+          .then((e) => e.json())
+          .then((e) => {
+            console.log(e);
+            e.forEach((beer) => {
+              fetch(`https://frontendspring20-f2e0.restdb.io/rest/beers/${beer._id}`, {
+                method: "put",
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "x-apikey": `5e957b2e436377171a0c2346`,
+                  "cache-control": "no-cache",
+                },
+                body: postData,
+              })
+                .then((e) => e.json())
+                .then((e) => console.log(e));
+            });
+          });
+      }
+    }, 60000);
   }
 }
