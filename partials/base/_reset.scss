@@ -3,7 +3,6 @@
   box-sizing: border-box;
   font-family: sans-serif;
   font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
 }
 body {
   margin: 0;
@@ -15,10 +14,18 @@ html {
 
 h1 {
   font-size: 15rem;
+  // text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 7px;
+  // text-transform: uppercase;
 }
 
 h3 {
   font-size: 1.8rem;
+  // text-transform: uppercase;
 }
 
 p,

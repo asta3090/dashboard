@@ -2,46 +2,22 @@
 import Chart from "chart.js";
 document.addEventListener("DOMContentLoaded", start);
 
-const endPoint = "https://foobarexam.herokuapp.com/";
 const restDBEndpoint = "https://frontendspring20-f2e0.restdb.io/rest/beers";
 const APIKey = "5e957b2e436377171a0c2346";
-const updateInterval = 1;
 const HTML = {};
-let currentTaps = [];
-let waitingTimes = [0, 0];
-let orderHistory = [];
-let ordersStored = [];
 let today = new Date().toString().substring(0, 3).toLowerCase();
 
-const OrderHistory = {
-  name: "",
-  timesOrdered: 0,
-};
-
 function start() {
-  console.log("START");
-  HTML.template = document.querySelector("template");
-  HTML.dest = document.querySelector("#ordercontainer");
-  HTML.queue = document.querySelector("#queue");
+  console.log("start chart");
   HTML.chartIcon = document.querySelector("#chart-icon");
+  HTML.loader = document.querySelector("#loader_container");
+  HTML.main = document.querySelector("main");
 
-  console.log(today);
-
-  setInterval(() => {
-    orderHistory.forEach((historyItem) => {
-      updateDatabase(historyItem);
-    });
-    orderHistory = [];
-    console.log("Updating database");
-    console.log(`Total orders stored: ${ordersStored.length}`);
-  }, updateInterval * 60000);
-
-  fetchSVGS();
-  fetchData();
   getDatabaseData();
   resetDatabase();
 }
 
+<<<<<<< HEAD:main.js
 function fetchSVGS() {
   fetch("svgs/tap.svg", {
     method: "get",
@@ -287,6 +263,8 @@ function updateDatabase(item) {
     });
 }
 
+=======
+>>>>>>> 8652bd65b126f2509f0f788274d5274f3b2ec509:js/charts.js
 function getDatabaseData() {
   fetch(`${restDBEndpoint}?max=10`, {
     method: "get",
@@ -300,8 +278,24 @@ function getDatabaseData() {
     .then((e) => {
       console.log("Database data:");
       console.log(e);
+
+      HTML.loader.setAttribute("loaded", true);
+
+      if (HTML.main.getAttribute("loaded") == "true") {
+        console.log("main og loader loaded");
+        HTML.loader.className = "hide-block";
+        HTML.main.className = "show-block";
+      }
+
       HTML.chartIcon.addEventListener("click", () => {
+<<<<<<< HEAD:main.js
         document.querySelector(".chart-container").classList.remove("hide-block");
+=======
+        console.log("click chart");
+        document
+          .querySelector(".chart-container")
+          .classList.remove("hide-block");
+>>>>>>> 8652bd65b126f2509f0f788274d5274f3b2ec509:js/charts.js
         document.querySelector("main").classList.add("hide-block");
         showChart(e);
       });
@@ -319,7 +313,7 @@ function showChart(e) {
 
   if (document.querySelector("#chart-select").value === "weekly") {
     weekChart = new Chart(ctx, {
-      type: "line",
+      type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: [
@@ -402,6 +396,7 @@ function showChart(e) {
           display: true,
           text: "This weeks sales",
           fontSize: 35,
+          fontColor: "#000",
         },
         legend: {
           display: false,
@@ -428,6 +423,7 @@ function showChart(e) {
           display: true,
           text: "Beers sold today",
           fontSize: 35,
+          fontColor: "#000",
         },
         legend: {
           display: false,
@@ -445,7 +441,7 @@ function showChart(e) {
     if (document.querySelector("#chart-select").value === "weekly") {
       myChart.destroy();
       weekChart = new Chart(ctx, {
-        type: "line",
+        type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
           labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
           datasets: [
@@ -528,6 +524,7 @@ function showChart(e) {
             display: true,
             text: "This weeks sales",
             fontSize: 35,
+            fontColor: "#000",
           },
           legend: {
             display: false,
@@ -556,6 +553,7 @@ function showChart(e) {
             display: true,
             text: "Beers sold today",
             fontSize: 35,
+            fontColor: "#000",
           },
           legend: {
             display: false,
