@@ -47,20 +47,33 @@ function getDatabaseData() {
         document.querySelector("main").classList.add("hide-block");
         showChart(e);
       });
+
+      e.forEach((beer) => {
+        document
+          .querySelectorAll(`[data-beertype="${beer.name}"]`)
+          .forEach((DOMItem) => {
+            DOMItem.style.setProperty("--beer-color", beer.color);
+            DOMItem.style.setProperty(
+              "--beer-color-darken",
+              darkenHEX(beer.color)
+            );
+            console.log(DOMItem);
+          });
+      });
     });
 }
 
-function showChart(e) {
-  const chartData = createChartData(e);
+function showChart(data) {
+  const chartData = createChartData(data);
 
   Chart.defaults.global.defaultFontFamily = '"Roboto"';
 
-  let ctx = document.getElementById("myChart");
-  let myChart;
+  let chartDest = document.getElementById("myChart");
+  let dailyChart;
   let weekChart;
 
   if (document.querySelector("#chart-select").value === "weekly") {
-    weekChart = new Chart(ctx, {
+    weekChart = new Chart(chartDest, {
       type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
         labels: [
@@ -74,153 +87,153 @@ function showChart(e) {
         ],
         datasets: [
           {
-            backgroundColor: e[0].color,
-            borderColor: e[0].color,
+            backgroundColor: data[0].color,
+            borderColor: data[0].color,
             fill: false,
-            label: [e[0].name],
+            label: [data[0].name],
             data: [
-              e[0].salesMon,
-              e[0].salesTue,
-              e[0].salesWed,
-              e[0].salesThu,
-              e[0].salesFri,
-              e[0].salesSat,
-              e[0].salesSun,
+              data[0].salesMon,
+              data[0].salesTue,
+              data[0].salesWed,
+              data[0].salesThu,
+              data[0].salesFri,
+              data[0].salesSat,
+              data[0].salesSun,
             ],
           },
           {
-            backgroundColor: e[1].color,
-            borderColor: e[1].color,
+            backgroundColor: data[1].color,
+            borderColor: data[1].color,
             fill: false,
-            label: [e[1].name],
+            label: [data[1].name],
             data: [
-              e[1].salesMon,
-              e[1].salesTue,
-              e[1].salesWed,
-              e[1].salesThu,
-              e[1].salesFri,
-              e[1].salesSat,
-              e[1].salesSun,
+              data[1].salesMon,
+              data[1].salesTue,
+              data[1].salesWed,
+              data[1].salesThu,
+              data[1].salesFri,
+              data[1].salesSat,
+              data[1].salesSun,
             ],
           },
           {
-            backgroundColor: e[2].color,
-            borderColor: e[2].color,
+            backgroundColor: data[2].color,
+            borderColor: data[2].color,
             fill: false,
-            label: [e[2].name],
+            label: [data[2].name],
             data: [
-              e[2].salesMon,
-              e[2].salesTue,
-              e[2].salesWed,
-              e[2].salesThu,
-              e[2].salesFri,
-              e[2].salesSat,
-              e[2].salesSun,
+              data[2].salesMon,
+              data[2].salesTue,
+              data[2].salesWed,
+              data[2].salesThu,
+              data[2].salesFri,
+              data[2].salesSat,
+              data[2].salesSun,
             ],
           },
           {
-            backgroundColor: e[3].color,
-            borderColor: e[3].color,
+            backgroundColor: data[3].color,
+            borderColor: data[3].color,
             fill: false,
-            label: [e[3].name],
+            label: [data[3].name],
             data: [
-              e[3].salesMon,
-              e[3].salesTue,
-              e[3].salesWed,
-              e[3].salesThu,
-              e[3].salesFri,
-              e[3].salesSat,
-              e[3].salesSun,
+              data[3].salesMon,
+              data[3].salesTue,
+              data[3].salesWed,
+              data[3].salesThu,
+              data[3].salesFri,
+              data[3].salesSat,
+              data[3].salesSun,
             ],
           },
           {
-            backgroundColor: e[4].color,
-            borderColor: e[4].color,
+            backgroundColor: data[4].color,
+            borderColor: data[4].color,
             fill: false,
-            label: [e[4].name],
+            label: [data[4].name],
             data: [
-              e[4].salesMon,
-              e[4].salesTue,
-              e[4].salesWed,
-              e[4].salesThu,
-              e[4].salesFri,
-              e[4].salesSat,
-              e[4].salesSun,
+              data[4].salesMon,
+              data[4].salesTue,
+              data[4].salesWed,
+              data[4].salesThu,
+              data[4].salesFri,
+              data[4].salesSat,
+              data[4].salesSun,
             ],
           },
           {
-            backgroundColor: e[5].color,
-            borderColor: e[5].color,
+            backgroundColor: data[5].color,
+            borderColor: data[5].color,
             fill: false,
-            label: [e[5].name],
+            label: [data[5].name],
             data: [
-              e[5].salesMon,
-              e[5].salesTue,
-              e[5].salesWed,
-              e[5].salesThu,
-              e[5].salesFri,
-              e[5].salesSat,
-              e[5].salesSun,
+              data[5].salesMon,
+              data[5].salesTue,
+              data[5].salesWed,
+              data[5].salesThu,
+              data[5].salesFri,
+              data[5].salesSat,
+              data[5].salesSun,
             ],
           },
           {
-            backgroundColor: e[6].color,
-            borderColor: e[6].color,
+            backgroundColor: data[6].color,
+            borderColor: data[6].color,
             fill: false,
-            label: [e[6].name],
+            label: [data[6].name],
             data: [
-              e[6].salesMon,
-              e[6].salesTue,
-              e[6].salesWed,
-              e[6].salesThu,
-              e[6].salesFri,
-              e[6].salesSat,
-              e[6].salesSun,
+              data[6].salesMon,
+              data[6].salesTue,
+              data[6].salesWed,
+              data[6].salesThu,
+              data[6].salesFri,
+              data[6].salesSat,
+              data[6].salesSun,
             ],
           },
           {
-            backgroundColor: e[7].color,
-            borderColor: e[7].color,
+            backgroundColor: data[7].color,
+            borderColor: data[7].color,
             fill: false,
-            label: [e[7].name],
+            label: [data[7].name],
             data: [
-              e[7].salesMon,
-              e[7].salesTue,
-              e[7].salesWed,
-              e[7].salesThu,
-              e[7].salesFri,
-              e[7].salesSat,
-              e[7].salesSun,
+              data[7].salesMon,
+              data[7].salesTue,
+              data[7].salesWed,
+              data[7].salesThu,
+              data[7].salesFri,
+              data[7].salesSat,
+              data[7].salesSun,
             ],
           },
           {
-            backgroundColor: e[8].color,
-            borderColor: e[8].color,
+            backgroundColor: data[8].color,
+            borderColor: data[8].color,
             fill: false,
-            label: [e[8].name],
+            label: [data[8].name],
             data: [
-              e[8].salesMon,
-              e[8].salesTue,
-              e[8].salesWed,
-              e[8].salesThu,
-              e[8].salesFri,
-              e[8].salesSat,
-              e[8].salesSun,
+              data[8].salesMon,
+              data[8].salesTue,
+              data[8].salesWed,
+              data[8].salesThu,
+              data[8].salesFri,
+              data[8].salesSat,
+              data[8].salesSun,
             ],
           },
           {
-            backgroundColor: e[9].color,
-            borderColor: e[9].color,
+            backgroundColor: data[9].color,
+            borderColor: data[9].color,
             fill: false,
-            label: [e[9].name],
+            label: [data[9].name],
             data: [
-              e[9].salesMon,
-              e[9].salesTue,
-              e[9].salesWed,
-              e[9].salesThu,
-              e[9].salesFri,
-              e[9].salesSat,
-              e[9].salesSun,
+              data[9].salesMon,
+              data[9].salesTue,
+              data[9].salesWed,
+              data[9].salesThu,
+              data[9].salesFri,
+              data[9].salesSat,
+              data[9].salesSun,
             ],
           },
         ],
@@ -240,7 +253,7 @@ function showChart(e) {
       },
     });
   } else {
-    myChart = new Chart(ctx, {
+    dailyChart = new Chart(chartDest, {
       type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
         labels: [
@@ -308,8 +321,8 @@ function showChart(e) {
 
   document.querySelector("#chart-select").addEventListener("change", () => {
     if (document.querySelector("#chart-select").value === "weekly") {
-      myChart.destroy();
-      weekChart = new Chart(ctx, {
+      dailyChart.destroy();
+      weekChart = new Chart(chartDest, {
         type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
           labels: [
@@ -323,153 +336,153 @@ function showChart(e) {
           ],
           datasets: [
             {
-              backgroundColor: e[0].color,
-              borderColor: e[0].color,
+              backgroundColor: data[0].color,
+              borderColor: data[0].color,
               fill: false,
-              label: [e[0].name],
+              label: [data[0].name],
               data: [
-                e[0].salesMon,
-                e[0].salesTue,
-                e[0].salesWed,
-                e[0].salesThu,
-                e[0].salesFri,
-                e[0].salesSat,
-                e[0].salesSun,
+                data[0].salesMon,
+                data[0].salesTue,
+                data[0].salesWed,
+                data[0].salesThu,
+                data[0].salesFri,
+                data[0].salesSat,
+                data[0].salesSun,
               ],
             },
             {
-              backgroundColor: e[1].color,
-              borderColor: e[1].color,
+              backgroundColor: data[1].color,
+              borderColor: data[1].color,
               fill: false,
-              label: [e[1].name],
+              label: [data[1].name],
               data: [
-                e[1].salesMon,
-                e[1].salesTue,
-                e[1].salesWed,
-                e[1].salesThu,
-                e[1].salesFri,
-                e[1].salesSat,
-                e[1].salesSun,
+                data[1].salesMon,
+                data[1].salesTue,
+                data[1].salesWed,
+                data[1].salesThu,
+                data[1].salesFri,
+                data[1].salesSat,
+                data[1].salesSun,
               ],
             },
             {
-              backgroundColor: e[2].color,
-              borderColor: e[2].color,
+              backgroundColor: data[2].color,
+              borderColor: data[2].color,
               fill: false,
-              label: [e[2].name],
+              label: [data[2].name],
               data: [
-                e[2].salesMon,
-                e[2].salesTue,
-                e[2].salesWed,
-                e[2].salesThu,
-                e[2].salesFri,
-                e[2].salesSat,
-                e[2].salesSun,
+                data[2].salesMon,
+                data[2].salesTue,
+                data[2].salesWed,
+                data[2].salesThu,
+                data[2].salesFri,
+                data[2].salesSat,
+                data[2].salesSun,
               ],
             },
             {
-              backgroundColor: e[3].color,
-              borderColor: e[3].color,
+              backgroundColor: data[3].color,
+              borderColor: data[3].color,
               fill: false,
-              label: [e[3].name],
+              label: [data[3].name],
               data: [
-                e[3].salesMon,
-                e[3].salesTue,
-                e[3].salesWed,
-                e[3].salesThu,
-                e[3].salesFri,
-                e[3].salesSat,
-                e[3].salesSun,
+                data[3].salesMon,
+                data[3].salesTue,
+                data[3].salesWed,
+                data[3].salesThu,
+                data[3].salesFri,
+                data[3].salesSat,
+                data[3].salesSun,
               ],
             },
             {
-              backgroundColor: e[4].color,
-              borderColor: e[4].color,
+              backgroundColor: data[4].color,
+              borderColor: data[4].color,
               fill: false,
-              label: [e[4].name],
+              label: [data[4].name],
               data: [
-                e[4].salesMon,
-                e[4].salesTue,
-                e[4].salesWed,
-                e[4].salesThu,
-                e[4].salesFri,
-                e[4].salesSat,
-                e[4].salesSun,
+                data[4].salesMon,
+                data[4].salesTue,
+                data[4].salesWed,
+                data[4].salesThu,
+                data[4].salesFri,
+                data[4].salesSat,
+                data[4].salesSun,
               ],
             },
             {
-              backgroundColor: e[5].color,
-              borderColor: e[5].color,
+              backgroundColor: data[5].color,
+              borderColor: data[5].color,
               fill: false,
-              label: [e[5].name],
+              label: [data[5].name],
               data: [
-                e[5].salesMon,
-                e[5].salesTue,
-                e[5].salesWed,
-                e[5].salesThu,
-                e[5].salesFri,
-                e[5].salesSat,
-                e[5].salesSun,
+                data[5].salesMon,
+                data[5].salesTue,
+                data[5].salesWed,
+                data[5].salesThu,
+                data[5].salesFri,
+                data[5].salesSat,
+                data[5].salesSun,
               ],
             },
             {
-              backgroundColor: e[6].color,
-              borderColor: e[6].color,
+              backgroundColor: data[6].color,
+              borderColor: data[6].color,
               fill: false,
-              label: [e[6].name],
+              label: [data[6].name],
               data: [
-                e[6].salesMon,
-                e[6].salesTue,
-                e[6].salesWed,
-                e[6].salesThu,
-                e[6].salesFri,
-                e[6].salesSat,
-                e[6].salesSun,
+                data[6].salesMon,
+                data[6].salesTue,
+                data[6].salesWed,
+                data[6].salesThu,
+                data[6].salesFri,
+                data[6].salesSat,
+                data[6].salesSun,
               ],
             },
             {
-              backgroundColor: e[7].color,
-              borderColor: e[7].color,
+              backgroundColor: data[7].color,
+              borderColor: data[7].color,
               fill: false,
-              label: [e[7].name],
+              label: [data[7].name],
               data: [
-                e[7].salesMon,
-                e[7].salesTue,
-                e[7].salesWed,
-                e[7].salesThu,
-                e[7].salesFri,
-                e[7].salesSat,
-                e[7].salesSun,
+                data[7].salesMon,
+                data[7].salesTue,
+                data[7].salesWed,
+                data[7].salesThu,
+                data[7].salesFri,
+                data[7].salesSat,
+                data[7].salesSun,
               ],
             },
             {
-              backgroundColor: e[8].color,
-              borderColor: e[8].color,
+              backgroundColor: data[8].color,
+              borderColor: data[8].color,
               fill: false,
-              label: [e[8].name],
+              label: [data[8].name],
               data: [
-                e[8].salesMon,
-                e[8].salesTue,
-                e[8].salesWed,
-                e[8].salesThu,
-                e[8].salesFri,
-                e[8].salesSat,
-                e[8].salesSun,
+                data[8].salesMon,
+                data[8].salesTue,
+                data[8].salesWed,
+                data[8].salesThu,
+                data[8].salesFri,
+                data[8].salesSat,
+                data[8].salesSun,
               ],
             },
             {
-              backgroundColor: e[9].color,
-              borderColor: e[9].color,
+              backgroundColor: data[9].color,
+              borderColor: data[9].color,
               fill: false,
-              label: [e[9].name],
+              label: [data[9].name],
               data: [
-                e[9].salesMon,
-                e[9].salesTue,
-                e[9].salesWed,
-                e[9].salesThu,
-                e[9].salesFri,
-                e[9].salesSat,
-                e[9].salesSun,
+                data[9].salesMon,
+                data[9].salesTue,
+                data[9].salesWed,
+                data[9].salesThu,
+                data[9].salesFri,
+                data[9].salesSat,
+                data[9].salesSun,
               ],
             },
           ],
@@ -490,7 +503,7 @@ function showChart(e) {
       });
     } else {
       weekChart.destroy();
-      myChart = new Chart(ctx, {
+      dailyChart = new Chart(chartDest, {
         type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
           labels: [
@@ -558,115 +571,114 @@ function compareNumbers(a, b) {
   return b.sales - a.sales;
 }
 
-function createChartData(e) {
+function createChartData(data) {
   if (today === "mon") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesMon,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesMon,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesMon,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesMon,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesMon,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesMon,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesMon,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesMon,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesMon,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesMon,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesMon,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesMon,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesMon,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesMon,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesMon,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesMon,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesMon,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesMon,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesMon,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesMon,
+        color: data[9].color,
       },
     ];
 
     const sortedChartData = localChartData.sort(compareNumbers);
-
     return sortedChartData;
   } else if (today === "tue") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesTue,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesTue,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesTue,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesTue,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesTue,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesTue,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesTue,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesTue,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesTue,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesTue,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesTue,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesTue,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesTue,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesTue,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesTue,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesTue,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesTue,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesTue,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesTue,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesTue,
+        color: data[9].color,
       },
     ];
 
@@ -676,54 +688,54 @@ function createChartData(e) {
   } else if (today === "wed") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesWed,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesWed,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesWed,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesWed,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesWed,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesWed,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesWed,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesWed,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesWed,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesWed,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesWed,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesWed,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesWed,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesWed,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesWed,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesWed,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesWed,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesWed,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesWed,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesWed,
+        color: data[9].color,
       },
     ];
 
@@ -733,54 +745,54 @@ function createChartData(e) {
   } else if (today === "thu") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesThu,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesThu,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesThu,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesThu,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesThu,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesThu,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesThu,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesThu,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesThu,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesThu,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesThu,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesThu,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesThu,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesThu,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesThu,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesThu,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesThu,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesThu,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesThu,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesThu,
+        color: data[9].color,
       },
     ];
 
@@ -790,54 +802,54 @@ function createChartData(e) {
   } else if (today === "fri") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesFri,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesFri,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesFri,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesFri,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesFri,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesFri,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesFri,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesFri,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesFri,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesFri,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesFri,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesFri,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesFri,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesFri,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesFri,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesFri,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesFri,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesFri,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesFri,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesFri,
+        color: data[9].color,
       },
     ];
 
@@ -847,54 +859,54 @@ function createChartData(e) {
   } else if (today === "sat") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesSat,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesSat,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesSat,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesSat,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesSat,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesSat,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesSat,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesSat,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesSat,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesSat,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesSat,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesSat,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesSat,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesSat,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesSat,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesSat,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesSat,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesSat,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesSat,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesSat,
+        color: data[9].color,
       },
     ];
 
@@ -904,54 +916,54 @@ function createChartData(e) {
   } else if (today === "sun") {
     const localChartData = [
       {
-        name: e[0].name,
-        sales: e[0].salesSun,
-        color: e[0].color,
+        name: data[0].name,
+        sales: data[0].salesSun,
+        color: data[0].color,
       },
       {
-        name: e[1].name,
-        sales: e[1].salesSun,
-        color: e[1].color,
+        name: data[1].name,
+        sales: data[1].salesSun,
+        color: data[1].color,
       },
       {
-        name: e[2].name,
-        sales: e[2].salesSun,
-        color: e[2].color,
+        name: data[2].name,
+        sales: data[2].salesSun,
+        color: data[2].color,
       },
       {
-        name: e[3].name,
-        sales: e[3].salesSun,
-        color: e[3].color,
+        name: data[3].name,
+        sales: data[3].salesSun,
+        color: data[3].color,
       },
       {
-        name: e[4].name,
-        sales: e[4].salesSun,
-        color: e[4].color,
+        name: data[4].name,
+        sales: data[4].salesSun,
+        color: data[4].color,
       },
       {
-        name: e[5].name,
-        sales: e[5].salesSun,
-        color: e[5].color,
+        name: data[5].name,
+        sales: data[5].salesSun,
+        color: data[5].color,
       },
       {
-        name: e[6].name,
-        sales: e[6].salesSun,
-        color: e[6].color,
+        name: data[6].name,
+        sales: data[6].salesSun,
+        color: data[6].color,
       },
       {
-        name: e[7].name,
-        sales: e[7].salesSun,
-        color: e[7].color,
+        name: data[7].name,
+        sales: data[7].salesSun,
+        color: data[7].color,
       },
       {
-        name: e[8].name,
-        sales: e[8].salesSun,
-        color: e[8].color,
+        name: data[8].name,
+        sales: data[8].salesSun,
+        color: data[8].color,
       },
       {
-        name: e[9].name,
-        sales: e[9].salesSun,
-        color: e[9].color,
+        name: data[9].name,
+        sales: data[9].salesSun,
+        color: data[9].color,
       },
     ];
 
@@ -1010,4 +1022,47 @@ function resetDatabase() {
       }
     }, 60000);
   }
+}
+
+//Borrowed from https://css-tricks.com/converting-color-spaces-in-javascript/
+function darkenHEX(H) {
+  // Convert hex to RGB first
+  let r = 0,
+    g = 0,
+    b = 0;
+  if (H.length == 4) {
+    r = "0x" + H[1] + H[1];
+    g = "0x" + H[2] + H[2];
+    b = "0x" + H[3] + H[3];
+  } else if (H.length == 7) {
+    r = "0x" + H[1] + H[2];
+    g = "0x" + H[3] + H[4];
+    b = "0x" + H[5] + H[6];
+  }
+  // Then to HSL
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  let cmin = Math.min(r, g, b),
+    cmax = Math.max(r, g, b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0;
+
+  if (delta == 0) h = 0;
+  else if (cmax == r) h = ((g - b) / delta) % 6;
+  else if (cmax == g) h = (b - r) / delta + 2;
+  else h = (r - g) / delta + 4;
+
+  h = Math.round(h * 60);
+
+  if (h < 0) h += 360;
+
+  l = (cmax + cmin) / 2;
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = +(s * 100).toFixed(1);
+  l = +(l * 100).toFixed(1) - 10;
+
+  return "hsl(" + h + "," + s + "%," + l + "%)";
 }
