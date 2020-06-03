@@ -24,7 +24,6 @@ const OrderHistory = {
 };
 
 function start() {
-  console.log("START");
   HTML.template = document.querySelector("template");
   HTML.dest = document.querySelector("#ordercontainer");
   HTML.queue = document.querySelector("#queue");
@@ -32,15 +31,11 @@ function start() {
   HTML.main = document.querySelector("main");
   HTML.loader = document.querySelector("#loader_container");
 
-  console.log(today);
-
   setInterval(() => {
     orderHistory.forEach((historyItem) => {
       updateDatabase(historyItem);
     });
     orderHistory = [];
-    console.log("Updating database");
-    console.log(`Total orders stored: ${ordersStored.length}`);
   }, updateInterval * 60000);
 
   fetchSVGS();
@@ -311,8 +306,6 @@ function updateDatabase(item) {
   })
     .then((e) => e.json())
     .then((e) => {
-      console.log(e);
-
       let userID = e[0]._id;
 
       fetch(`${restDBEndpoint}/${userID}`, {

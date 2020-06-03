@@ -8,7 +8,6 @@ const HTML = {};
 let today = new Date().toString().substring(0, 3).toLowerCase();
 
 function start() {
-  console.log("start chart");
   HTML.chartIcon = document.querySelector("#chart-icon");
   HTML.loader = document.querySelector("#loader_container");
   HTML.main = document.querySelector("main");
@@ -28,30 +27,31 @@ function getDatabaseData() {
   })
     .then((e) => e.json())
     .then((e) => {
-      console.log("Database data:");
-      console.log(e);
-
       HTML.loader.setAttribute("loaded", true);
 
       if (HTML.main.getAttribute("loaded") == "true") {
-        console.log("main og loader loaded");
         HTML.loader.className = "hide-block";
         HTML.main.className = "show-block";
       }
 
       HTML.chartIcon.addEventListener("click", () => {
-        console.log("click chart");
-        document.querySelector(".chart-container").classList.remove("hide-block");
+        document
+          .querySelector(".chart-container")
+          .classList.remove("hide-block");
         document.querySelector("main").classList.add("hide-block");
         showChart(e);
       });
 
       e.forEach((beer) => {
-        document.querySelectorAll(`[data-beertype="${beer.name}"]`).forEach((DOMItem) => {
-          DOMItem.style.setProperty("--beer-color", beer.color);
-          DOMItem.style.setProperty("--beer-color-darken", darkenHEX(beer.color));
-          console.log(DOMItem);
-        });
+        document
+          .querySelectorAll(`[data-beertype="${beer.name}"]`)
+          .forEach((DOMItem) => {
+            DOMItem.style.setProperty("--beer-color", beer.color);
+            DOMItem.style.setProperty(
+              "--beer-color-darken",
+              darkenHEX(beer.color)
+            );
+          });
       });
     });
 }
@@ -69,77 +69,165 @@ function showChart(data) {
     weekChart = new Chart(chartDest, {
       type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
-        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        labels: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
         datasets: [
           {
             backgroundColor: data[0].color,
             borderColor: data[0].color,
             fill: false,
             label: [data[0].name],
-            data: [data[0].salesMon, data[0].salesTue, data[0].salesWed, data[0].salesThu, data[0].salesFri, data[0].salesSat, data[0].salesSun],
+            data: [
+              data[0].salesMon,
+              data[0].salesTue,
+              data[0].salesWed,
+              data[0].salesThu,
+              data[0].salesFri,
+              data[0].salesSat,
+              data[0].salesSun,
+            ],
           },
           {
             backgroundColor: data[1].color,
             borderColor: data[1].color,
             fill: false,
             label: [data[1].name],
-            data: [data[1].salesMon, data[1].salesTue, data[1].salesWed, data[1].salesThu, data[1].salesFri, data[1].salesSat, data[1].salesSun],
+            data: [
+              data[1].salesMon,
+              data[1].salesTue,
+              data[1].salesWed,
+              data[1].salesThu,
+              data[1].salesFri,
+              data[1].salesSat,
+              data[1].salesSun,
+            ],
           },
           {
             backgroundColor: data[2].color,
             borderColor: data[2].color,
             fill: false,
             label: [data[2].name],
-            data: [data[2].salesMon, data[2].salesTue, data[2].salesWed, data[2].salesThu, data[2].salesFri, data[2].salesSat, data[2].salesSun],
+            data: [
+              data[2].salesMon,
+              data[2].salesTue,
+              data[2].salesWed,
+              data[2].salesThu,
+              data[2].salesFri,
+              data[2].salesSat,
+              data[2].salesSun,
+            ],
           },
           {
             backgroundColor: data[3].color,
             borderColor: data[3].color,
             fill: false,
             label: [data[3].name],
-            data: [data[3].salesMon, data[3].salesTue, data[3].salesWed, data[3].salesThu, data[3].salesFri, data[3].salesSat, data[3].salesSun],
+            data: [
+              data[3].salesMon,
+              data[3].salesTue,
+              data[3].salesWed,
+              data[3].salesThu,
+              data[3].salesFri,
+              data[3].salesSat,
+              data[3].salesSun,
+            ],
           },
           {
             backgroundColor: data[4].color,
             borderColor: data[4].color,
             fill: false,
             label: [data[4].name],
-            data: [data[4].salesMon, data[4].salesTue, data[4].salesWed, data[4].salesThu, data[4].salesFri, data[4].salesSat, data[4].salesSun],
+            data: [
+              data[4].salesMon,
+              data[4].salesTue,
+              data[4].salesWed,
+              data[4].salesThu,
+              data[4].salesFri,
+              data[4].salesSat,
+              data[4].salesSun,
+            ],
           },
           {
             backgroundColor: data[5].color,
             borderColor: data[5].color,
             fill: false,
             label: [data[5].name],
-            data: [data[5].salesMon, data[5].salesTue, data[5].salesWed, data[5].salesThu, data[5].salesFri, data[5].salesSat, data[5].salesSun],
+            data: [
+              data[5].salesMon,
+              data[5].salesTue,
+              data[5].salesWed,
+              data[5].salesThu,
+              data[5].salesFri,
+              data[5].salesSat,
+              data[5].salesSun,
+            ],
           },
           {
             backgroundColor: data[6].color,
             borderColor: data[6].color,
             fill: false,
             label: [data[6].name],
-            data: [data[6].salesMon, data[6].salesTue, data[6].salesWed, data[6].salesThu, data[6].salesFri, data[6].salesSat, data[6].salesSun],
+            data: [
+              data[6].salesMon,
+              data[6].salesTue,
+              data[6].salesWed,
+              data[6].salesThu,
+              data[6].salesFri,
+              data[6].salesSat,
+              data[6].salesSun,
+            ],
           },
           {
             backgroundColor: data[7].color,
             borderColor: data[7].color,
             fill: false,
             label: [data[7].name],
-            data: [data[7].salesMon, data[7].salesTue, data[7].salesWed, data[7].salesThu, data[7].salesFri, data[7].salesSat, data[7].salesSun],
+            data: [
+              data[7].salesMon,
+              data[7].salesTue,
+              data[7].salesWed,
+              data[7].salesThu,
+              data[7].salesFri,
+              data[7].salesSat,
+              data[7].salesSun,
+            ],
           },
           {
             backgroundColor: data[8].color,
             borderColor: data[8].color,
             fill: false,
             label: [data[8].name],
-            data: [data[8].salesMon, data[8].salesTue, data[8].salesWed, data[8].salesThu, data[8].salesFri, data[8].salesSat, data[8].salesSun],
+            data: [
+              data[8].salesMon,
+              data[8].salesTue,
+              data[8].salesWed,
+              data[8].salesThu,
+              data[8].salesFri,
+              data[8].salesSat,
+              data[8].salesSun,
+            ],
           },
           {
             backgroundColor: data[9].color,
             borderColor: data[9].color,
             fill: false,
             label: [data[9].name],
-            data: [data[9].salesMon, data[9].salesTue, data[9].salesWed, data[9].salesThu, data[9].salesFri, data[9].salesSat, data[9].salesSun],
+            data: [
+              data[9].salesMon,
+              data[9].salesTue,
+              data[9].salesWed,
+              data[9].salesThu,
+              data[9].salesFri,
+              data[9].salesSat,
+              data[9].salesSun,
+            ],
           },
         ],
       },
@@ -161,12 +249,45 @@ function showChart(data) {
     dailyChart = new Chart(chartDest, {
       type: window.innerWidth > 730 ? "bar" : "horizontalBar",
       data: {
-        labels: [chartData[0].name, chartData[1].name, chartData[2].name, chartData[3].name, chartData[4].name, chartData[5].name, chartData[6].name, chartData[7].name, chartData[8].name, chartData[9].name],
+        labels: [
+          chartData[0].name,
+          chartData[1].name,
+          chartData[2].name,
+          chartData[3].name,
+          chartData[4].name,
+          chartData[5].name,
+          chartData[6].name,
+          chartData[7].name,
+          chartData[8].name,
+          chartData[9].name,
+        ],
         datasets: [
           {
             label: "Beers sold today",
-            data: [chartData[0].sales, chartData[1].sales, chartData[2].sales, chartData[3].sales, chartData[4].sales, chartData[5].sales, chartData[6].sales, chartData[7].sales, chartData[8].sales, chartData[9].sales],
-            backgroundColor: [chartData[0].color, chartData[1].color, chartData[2].color, chartData[3].color, chartData[4].color, chartData[5].color, chartData[6].color, chartData[7].color, chartData[8].color, chartData[9].color],
+            data: [
+              chartData[0].sales,
+              chartData[1].sales,
+              chartData[2].sales,
+              chartData[3].sales,
+              chartData[4].sales,
+              chartData[5].sales,
+              chartData[6].sales,
+              chartData[7].sales,
+              chartData[8].sales,
+              chartData[9].sales,
+            ],
+            backgroundColor: [
+              chartData[0].color,
+              chartData[1].color,
+              chartData[2].color,
+              chartData[3].color,
+              chartData[4].color,
+              chartData[5].color,
+              chartData[6].color,
+              chartData[7].color,
+              chartData[8].color,
+              chartData[9].color,
+            ],
           },
         ],
       },
@@ -197,77 +318,165 @@ function showChart(data) {
       weekChart = new Chart(chartDest, {
         type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
-          labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          labels: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
           datasets: [
             {
               backgroundColor: data[0].color,
               borderColor: data[0].color,
               fill: false,
               label: [data[0].name],
-              data: [data[0].salesMon, data[0].salesTue, data[0].salesWed, data[0].salesThu, data[0].salesFri, data[0].salesSat, data[0].salesSun],
+              data: [
+                data[0].salesMon,
+                data[0].salesTue,
+                data[0].salesWed,
+                data[0].salesThu,
+                data[0].salesFri,
+                data[0].salesSat,
+                data[0].salesSun,
+              ],
             },
             {
               backgroundColor: data[1].color,
               borderColor: data[1].color,
               fill: false,
               label: [data[1].name],
-              data: [data[1].salesMon, data[1].salesTue, data[1].salesWed, data[1].salesThu, data[1].salesFri, data[1].salesSat, data[1].salesSun],
+              data: [
+                data[1].salesMon,
+                data[1].salesTue,
+                data[1].salesWed,
+                data[1].salesThu,
+                data[1].salesFri,
+                data[1].salesSat,
+                data[1].salesSun,
+              ],
             },
             {
               backgroundColor: data[2].color,
               borderColor: data[2].color,
               fill: false,
               label: [data[2].name],
-              data: [data[2].salesMon, data[2].salesTue, data[2].salesWed, data[2].salesThu, data[2].salesFri, data[2].salesSat, data[2].salesSun],
+              data: [
+                data[2].salesMon,
+                data[2].salesTue,
+                data[2].salesWed,
+                data[2].salesThu,
+                data[2].salesFri,
+                data[2].salesSat,
+                data[2].salesSun,
+              ],
             },
             {
               backgroundColor: data[3].color,
               borderColor: data[3].color,
               fill: false,
               label: [data[3].name],
-              data: [data[3].salesMon, data[3].salesTue, data[3].salesWed, data[3].salesThu, data[3].salesFri, data[3].salesSat, data[3].salesSun],
+              data: [
+                data[3].salesMon,
+                data[3].salesTue,
+                data[3].salesWed,
+                data[3].salesThu,
+                data[3].salesFri,
+                data[3].salesSat,
+                data[3].salesSun,
+              ],
             },
             {
               backgroundColor: data[4].color,
               borderColor: data[4].color,
               fill: false,
               label: [data[4].name],
-              data: [data[4].salesMon, data[4].salesTue, data[4].salesWed, data[4].salesThu, data[4].salesFri, data[4].salesSat, data[4].salesSun],
+              data: [
+                data[4].salesMon,
+                data[4].salesTue,
+                data[4].salesWed,
+                data[4].salesThu,
+                data[4].salesFri,
+                data[4].salesSat,
+                data[4].salesSun,
+              ],
             },
             {
               backgroundColor: data[5].color,
               borderColor: data[5].color,
               fill: false,
               label: [data[5].name],
-              data: [data[5].salesMon, data[5].salesTue, data[5].salesWed, data[5].salesThu, data[5].salesFri, data[5].salesSat, data[5].salesSun],
+              data: [
+                data[5].salesMon,
+                data[5].salesTue,
+                data[5].salesWed,
+                data[5].salesThu,
+                data[5].salesFri,
+                data[5].salesSat,
+                data[5].salesSun,
+              ],
             },
             {
               backgroundColor: data[6].color,
               borderColor: data[6].color,
               fill: false,
               label: [data[6].name],
-              data: [data[6].salesMon, data[6].salesTue, data[6].salesWed, data[6].salesThu, data[6].salesFri, data[6].salesSat, data[6].salesSun],
+              data: [
+                data[6].salesMon,
+                data[6].salesTue,
+                data[6].salesWed,
+                data[6].salesThu,
+                data[6].salesFri,
+                data[6].salesSat,
+                data[6].salesSun,
+              ],
             },
             {
               backgroundColor: data[7].color,
               borderColor: data[7].color,
               fill: false,
               label: [data[7].name],
-              data: [data[7].salesMon, data[7].salesTue, data[7].salesWed, data[7].salesThu, data[7].salesFri, data[7].salesSat, data[7].salesSun],
+              data: [
+                data[7].salesMon,
+                data[7].salesTue,
+                data[7].salesWed,
+                data[7].salesThu,
+                data[7].salesFri,
+                data[7].salesSat,
+                data[7].salesSun,
+              ],
             },
             {
               backgroundColor: data[8].color,
               borderColor: data[8].color,
               fill: false,
               label: [data[8].name],
-              data: [data[8].salesMon, data[8].salesTue, data[8].salesWed, data[8].salesThu, data[8].salesFri, data[8].salesSat, data[8].salesSun],
+              data: [
+                data[8].salesMon,
+                data[8].salesTue,
+                data[8].salesWed,
+                data[8].salesThu,
+                data[8].salesFri,
+                data[8].salesSat,
+                data[8].salesSun,
+              ],
             },
             {
               backgroundColor: data[9].color,
               borderColor: data[9].color,
               fill: false,
               label: [data[9].name],
-              data: [data[9].salesMon, data[9].salesTue, data[9].salesWed, data[9].salesThu, data[9].salesFri, data[9].salesSat, data[9].salesSun],
+              data: [
+                data[9].salesMon,
+                data[9].salesTue,
+                data[9].salesWed,
+                data[9].salesThu,
+                data[9].salesFri,
+                data[9].salesSat,
+                data[9].salesSun,
+              ],
             },
           ],
         },
@@ -290,12 +499,45 @@ function showChart(data) {
       dailyChart = new Chart(chartDest, {
         type: window.innerWidth > 730 ? "bar" : "horizontalBar",
         data: {
-          labels: [chartData[0].name, chartData[1].name, chartData[2].name, chartData[3].name, chartData[4].name, chartData[5].name, chartData[6].name, chartData[7].name, chartData[8].name, chartData[9].name],
+          labels: [
+            chartData[0].name,
+            chartData[1].name,
+            chartData[2].name,
+            chartData[3].name,
+            chartData[4].name,
+            chartData[5].name,
+            chartData[6].name,
+            chartData[7].name,
+            chartData[8].name,
+            chartData[9].name,
+          ],
           datasets: [
             {
               label: "Beers sold today",
-              data: [chartData[0].sales, chartData[1].sales, chartData[2].sales, chartData[3].sales, chartData[4].sales, chartData[5].sales, chartData[6].sales, chartData[7].sales, chartData[8].sales, chartData[9].sales],
-              backgroundColor: [chartData[0].color, chartData[1].color, chartData[2].color, chartData[3].color, chartData[4].color, chartData[5].color, chartData[6].color, chartData[7].color, chartData[8].color, chartData[9].color],
+              data: [
+                chartData[0].sales,
+                chartData[1].sales,
+                chartData[2].sales,
+                chartData[3].sales,
+                chartData[4].sales,
+                chartData[5].sales,
+                chartData[6].sales,
+                chartData[7].sales,
+                chartData[8].sales,
+                chartData[9].sales,
+              ],
+              backgroundColor: [
+                chartData[0].color,
+                chartData[1].color,
+                chartData[2].color,
+                chartData[3].color,
+                chartData[4].color,
+                chartData[5].color,
+                chartData[6].color,
+                chartData[7].color,
+                chartData[8].color,
+                chartData[9].color,
+              ],
               borderWidth: 1,
             },
           ],
@@ -729,7 +971,6 @@ function resetDatabase() {
     setInterval(function () {
       var date = new Date();
       if (date.getHours() === 10 && date.getMinutes() === 0) {
-        console.log("Resetting database");
         const data = {
           salesMon: 0,
           salesTue: 0,
@@ -752,17 +993,19 @@ function resetDatabase() {
         })
           .then((e) => e.json())
           .then((e) => {
-            console.log(e);
             e.forEach((beer) => {
-              fetch(`https://frontendspring20-f2e0.restdb.io/rest/beers/${beer._id}`, {
-                method: "put",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  "x-apikey": `5e957b2e436377171a0c2346`,
-                  "cache-control": "no-cache",
-                },
-                body: postData,
-              })
+              fetch(
+                `https://frontendspring20-f2e0.restdb.io/rest/beers/${beer._id}`,
+                {
+                  method: "put",
+                  headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "x-apikey": `5e957b2e436377171a0c2346`,
+                    "cache-control": "no-cache",
+                  },
+                  body: postData,
+                }
+              )
                 .then((e) => e.json())
                 .then((e) => console.log(e));
             });
