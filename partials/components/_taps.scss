@@ -188,94 +188,12 @@
   }
 }
 
-[data-beertype="El Hefe"] {
+.tapwrapper {
   .overlay {
-    background-color: #f5ca06;
+    background-color: var(--beer-color);
   }
 
   .beerflow {
-    fill: darken($color: #f5ca06, $amount: 8);
-  }
-}
-
-[data-beertype="Fairy Tale Ale"] {
-  .overlay {
-    background-color: #eb8d02;
-  }
-
-  .beerflow {
-    fill: darken($color: #eb8d02, $amount: 8);
-  }
-}
-
-[data-beertype="GitHop"] {
-  .overlay {
-    background-color: #eb8d02;
-  }
-  .beerflow {
-    fill: darken($color: #eb8d02, $amount: 8);
-  }
-}
-
-[data-beertype="Hollaback Lager"] {
-  .overlay {
-    background-color: #cc5408;
-  }
-  .beerflow {
-    fill: darken($color: #cc5408, $amount: 8);
-  }
-}
-
-[data-beertype="Hoppily Ever After"] {
-  .overlay {
-    background-color: #eb8d02;
-  }
-  .beerflow {
-    fill: darken($color: #eb8d02, $amount: 8);
-  }
-}
-
-[data-beertype="Mowintime"] {
-  .overlay {
-    background-color: #cc5408;
-  }
-  .beerflow {
-    fill: darken($color: #cc5408, $amount: 8);
-  }
-}
-
-[data-beertype="Row 26"] {
-  .overlay {
-    background-color: #3d1102;
-  }
-  .beerflow {
-    fill: darken($color: #3d1102, $amount: 8);
-  }
-}
-
-[data-beertype="Ruined Childhood"] {
-  .overlay {
-    background-color: #bf7d02;
-  }
-  .beerflow {
-    fill: darken($color: #bf7d02, $amount: 8);
-  }
-}
-
-[data-beertype="Sleighride"] {
-  .overlay {
-    background-color: #bf7d02;
-  }
-  .beerflow {
-    fill: darken($color: #bf7d02, $amount: 8);
-  }
-}
-
-[data-beertype="Steampunk"] {
-  .overlay {
-    background-color: #d6a309;
-  }
-  .beerflow {
-    fill: darken($color: #d6a309, $amount: 8);
+    fill: var(--beer-color-darken);
   }
 }
